@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salón de Belleza</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #fffafc;
+        }
+
+        .navbar {
+          background-color: #d48ab3;
+          overflow: hidden;
+          display: flex;
+          justify-content: space-between;
+          padding: 0.8rem 2rem;
+          align-items: center;
+        }
+
+        .navbar h1 {
+          color: white;
+          font-size: 1.8rem;
+        }
+
+        .navbar ul {
+          list-style: none;
+          display: flex;
+        }
+
+        .navbar li {
+          position: relative;
+        }
+
+        .navbar a {
+          display: block;
+          color: white;
+          text-decoration: none;
+          padding: 0.75rem 1rem;
+          transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+          background-color: #c0669f;
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #fce4f0;
+          min-width: 160px;
+          z-index: 1;
+          top: 100%;
+          left: 0;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-content a {
+          color: #d60087;
+          padding: 0.75rem 1rem;
+          display: block;
+        }
+
+        .dropdown-content a:hover {
+          background-color: #ffe0f0;
+        }
+
+        .navbar li:hover .dropdown-content {
+          display: block;
+        }
+
+        /* Responsive menu */
+        @media screen and (max-width: 768px) {
+          .navbar ul {
+            flex-direction: column;
+            background-color: #d48ab3;
+            width: 100%;
+          }
+
+          .navbar li {
+            width: 100%;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <h1>Beauty by Saly</h1>
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li>
+            <a href="#">Servicios ▾</a>
+            <div class="dropdown-content">
+                <a href="#">Corte de cabello</a>
+                <a href="#">Manicure  y Pedicure</a>
+                <a href="#">Maquillaje</a>
+                <a href="#">Depilación</a>
+            </div>
+        </li>
+        <li><a href="#">Reservaciones</a></li>
+        <li><a href="#">Productos</a></li>
+        <li><a href="#">Contacto</a></li>
+    </ul>
+</nav>
+
+<div style="padding: 2rem;">
+    <h2>Bienvenida al sitio web de Beauty by Saly </h2>
+    <p>Explora nuestros servicios y reserva tu cita fácilmente .</p>
+</div>
+
+</body>
+</html>
