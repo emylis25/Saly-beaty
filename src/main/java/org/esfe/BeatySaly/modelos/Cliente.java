@@ -1,13 +1,33 @@
 package org.esfe.BeatySaly.modelos;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 import java.util.Set;
 
+//@Entity
+@Table(name = "clientes")
 public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank(message = "El nombre es requerido")
     private String nombre;
+
+    @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "El correo debe tener un formato válido")
     private String correo;
+
+    @NotNull(message = "El teléfono es obligatorio")
     private int telefono;
+
+    @NotBlank(message = "La contraseña es obligatoria")
+    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String password;
     private String rol;
 
