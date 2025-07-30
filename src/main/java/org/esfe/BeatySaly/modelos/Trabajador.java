@@ -19,7 +19,7 @@ public class Trabajador {
     private String correo;
 
     @Column(name = "telefono", length = 15)
-    private String telefono;
+    private int telefono;
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
@@ -54,7 +54,7 @@ public class Trabajador {
     public Trabajador() {
     }
 
-    public Trabajador(int id, String nombre, String correo, String telefono, boolean estado, String redSocial, LocalDateTime fechaIngreso, String fotoPerfil, int calificacion, String password, String rol) {
+    public Trabajador(int id, String nombre, String correo, int telefono, boolean estado, String redSocial, LocalDateTime fechaIngreso, String fotoPerfil, int calificacion, String password, String rol) {
         setId(id);
         setNombre(nombre);
         setCorreo(correo);
@@ -104,14 +104,15 @@ public class Trabajador {
         this.correo = correo.trim();
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        if (telefono == null || !telefono.matches("^\\+?[0-9\\s\\-]{7,15}$")) {
-            throw new IllegalArgumentException("El teléfono no es válido.");
+    public void setTelefono(int telefono) {
+        if (telefono <= 0) {
+            throw new IllegalArgumentException("El teléfono no puede ser un valor negativo o cero.");
         }
+
         this.telefono = telefono;
     }
 

@@ -17,10 +17,10 @@ public class Administrador {
     @Column(name = "correo", unique = true, nullable = false, length = 100)
     private String correo;
 
-    @Column(name = "telefono", length = 15)
-    private String telefono;
+    @Column(name = "telefono", nullable = false)
+    private int telefono;
 
-    @Column(name = "password", nullable = false, length = 255) // Longitud para un hash
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
 
     @Column(name = "rol", nullable = false, length = 50)
@@ -29,7 +29,8 @@ public class Administrador {
     public Administrador() {
     }
 
-    public Administrador(int id, String nombre, String correo, String telefono, String password, String rol) {
+
+    public Administrador(int id, String nombre, String correo, int telefono, String password, String rol) {
         setId(id);
         setNombre(nombre);
         setCorreo(correo);
@@ -38,7 +39,6 @@ public class Administrador {
         setRol(rol);
     }
 
-    // --- Getters y Setters con Validaciones ---
     public int getId() {
         return id;
     }
@@ -75,16 +75,19 @@ public class Administrador {
         this.correo = correo.trim();
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        if (telefono == null || !telefono.matches("^\\+?[0-9\\s\\-]{7,15}$")) {
-            throw new IllegalArgumentException("El teléfono no es válido.");
+    public void setTelefono(int telefono) {
+
+        if (telefono <= 0) {
+            throw new IllegalArgumentException("El teléfono no puede ser un valor negativo o cero.");
         }
+
         this.telefono = telefono;
     }
+
 
     public String getPassword() {
         return password;
@@ -111,7 +114,6 @@ public class Administrador {
         this.rol = rol.trim();
     }
 
-    // --- equals(), hashCode(), toString() ---
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,7 +133,7 @@ public class Administrador {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
-                ", telefono='" + telefono + '\'' +
+                ", telefono=" + telefono + // Cambio aquí para imprimir como int
                 ", rol='" + rol + '\'' +
                 '}';
     }

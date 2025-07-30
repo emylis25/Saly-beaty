@@ -16,7 +16,7 @@ public class Cita {
     private int idCliente;
 
     @Column(name = "telefono", length = 15)
-    private String telefono;
+    private int telefono;
 
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaHora;
@@ -30,7 +30,7 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(int id, int idCliente, String telefono, LocalDateTime fechaHora, int idTrabajador, int idServicio) {
+    public Cita(int id, int idCliente, int telefono, LocalDateTime fechaHora, int idTrabajador, int idServicio) {
         setId(id);
         setIdCliente(idCliente);
         setTelefono(telefono);
@@ -60,14 +60,15 @@ public class Cita {
         this.idCliente = idCliente;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        if (telefono == null || !telefono.matches("^\\+?[0-9\\s\\-]{7,15}$")) {
-            throw new IllegalArgumentException("El teléfono no es válido.");
+    public void setTelefono(int telefono) {
+        if (telefono <= 0) {
+            throw new IllegalArgumentException("El teléfono no puede ser un valor negativo o cero.");
         }
+
         this.telefono = telefono;
     }
 
