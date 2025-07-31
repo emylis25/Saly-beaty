@@ -2,6 +2,8 @@ package org.esfe.BeatySaly.modelos;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -42,14 +44,12 @@ public class Trabajador {
     @Column(name = "rol", nullable = false, length = 50)
     private String rol;
 
-    // Relación Many-to-Many con Servicio (a través de ServicioTrabajador)
-    // Esto se manejaría con @OneToMany en ServicioTrabajador, no directamente aquí
-    // @OneToMany(mappedBy = "trabajador")
-    // private Set<ServicioTrabajador> servicioTrabajadores;
 
-    // Relación One-to-Many con Horario
-    // @OneToMany(mappedBy = "trabajador")
-    // private Set<Horario> horarios;
+    @OneToMany(mappedBy = "trabajador")
+    private Set<ServicioTrabajador> servicioTrabajadores;
+
+    @OneToMany(mappedBy = "trabajador")
+    private Set<Horario> horarios;
 
     public Trabajador() {
     }

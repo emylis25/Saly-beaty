@@ -12,10 +12,13 @@ public class Horario {
     @Column(name = "id_horario")
     private int id;
 
-    @Column(name = "id_trabajador", nullable = false)
-    private int idTrabajador;
+    // Relación de Muchos a Uno con Trabajador.
+    // Usamos @JoinColumn para especificar la clave foránea.
+    @ManyToOne
+    @JoinColumn(name = "id_trabajador", nullable = false)
+    private Trabajador trabajador;
 
-    @Column(name = "dia_semana", nullable = false, length = 10) // "Lunes", "Martes", etc.
+    @Column(name = "dia_semana", nullable = false, length = 10)
     private String diaSemana;
 
     @Column(name = "hora_inicio", nullable = false)
@@ -27,9 +30,10 @@ public class Horario {
     public Horario() {
     }
 
-    public Horario(int id, int idTrabajador, String diaSemana, LocalTime horaInicio, LocalTime horaFin) {
+    // El constructor ahora recibe el objeto Trabajador completo.
+    public Horario(int id, Trabajador trabajador, String diaSemana, LocalTime horaInicio, LocalTime horaFin) {
         setId(id);
-        setIdTrabajador(idTrabajador);
+        setTrabajador(trabajador);
         setDiaSemana(diaSemana);
         setHoraInicio(horaInicio);
         setHoraFin(horaFin);
@@ -47,15 +51,16 @@ public class Horario {
         this.id = id;
     }
 
-    public int getIdTrabajador() {
-        return idTrabajador;
+    // Getter y Setter para el objeto Trabajador
+    public Trabajador getTrabajador() {
+        return trabajador;
     }
 
-    public void setIdTrabajador(int idTrabajador) {
-        if (idTrabajador <= 0) {
-            throw new IllegalArgumentException("El ID del trabajador debe ser un número positivo.");
+    public void setTrabajador(Trabajador trabajador) {
+        if (trabajador == null) {
+            throw new IllegalArgumentException("El trabajador no puede ser nulo.");
         }
-        this.idTrabajador = idTrabajador;
+        this.trabajador = trabajador;
     }
 
     public String getDiaSemana() {
@@ -69,11 +74,6 @@ public class Horario {
         if (diaSemana.length() > 10) {
             throw new IllegalArgumentException("El día de la semana es demasiado largo (máx. 10 caracteres).");
         }
-        // Opcional: Validar contra una lista de días válidos
-        // List<String> diasValidos = Arrays.asList("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
-        // if (!diasValidos.contains(diaSemana)) {
-        //     throw new IllegalArgumentException("El día de la semana no es válido.");
-        // }
         this.diaSemana = diaSemana.trim();
     }
 
@@ -120,7 +120,7 @@ public class Horario {
     public String toString() {
         return "Horario{" +
                 "id=" + id +
-                ", idTrabajador=" + idTrabajador +
+                ", idTrabajador=" + (trabajador != null ? trabajador.getId() : "null") + // Muestra el ID del trabajador
                 ", diaSemana='" + diaSemana + '\'' +
                 ", horaInicio=" + horaInicio +
                 ", horaFin=" + horaFin +

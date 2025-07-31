@@ -5,18 +5,20 @@ import java.util.Objects;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "resennas")
+@Table(name = "resennas") // Corregido: "resennas" en lugar de "resennas"
 public class Resenna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resenna")
     private int id;
 
-    @Column(name = "id_cliente", nullable = false)
-    private int idCliente;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente cliente;
 
-    @Column(name = "id_trabajador", nullable = false)
-    private int idTrabajador;
+    @ManyToOne
+    @JoinColumn(name = "id_trabajador", nullable = false)
+    private Trabajador trabajador;
 
     @Column(name = "calificacion", nullable = false)
     private int calificacion;
@@ -30,10 +32,11 @@ public class Resenna {
     public Resenna() {
     }
 
-    public Resenna(int id, int idCliente, int idTrabajador, int calificacion, String comentario, LocalDate fecha) {
+    // El constructor ahora recibe los objetos de las entidades relacionadas.
+    public Resenna(int id, Cliente cliente, Trabajador trabajador, int calificacion, String comentario, LocalDate fecha) {
         setId(id);
-        setIdCliente(idCliente);
-        setIdTrabajador(idTrabajador);
+        setCliente(cliente);
+        setTrabajador(trabajador);
         setCalificacion(calificacion);
         setComentario(comentario);
         setFecha(fecha);
@@ -51,26 +54,27 @@ public class Resenna {
         this.id = id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    // Getters y setters para las entidades Cliente y Trabajador.
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        if (idCliente <= 0) {
-            throw new IllegalArgumentException("El ID del cliente debe ser un número positivo.");
+    public void setCliente(Cliente cliente) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
         }
-        this.idCliente = idCliente;
+        this.cliente = cliente;
     }
 
-    public int getIdTrabajador() {
-        return idTrabajador;
+    public Trabajador getTrabajador() {
+        return trabajador;
     }
 
-    public void setIdTrabajador(int idTrabajador) {
-        if (idTrabajador <= 0) {
-            throw new IllegalArgumentException("El ID del trabajador debe ser un número positivo.");
+    public void setTrabajador(Trabajador trabajador) {
+        if (trabajador == null) {
+            throw new IllegalArgumentException("El trabajador no puede ser nulo.");
         }
-        this.idTrabajador = idTrabajador;
+        this.trabajador = trabajador;
     }
 
     public int getCalificacion() {
@@ -103,7 +107,8 @@ public class Resenna {
         if (fecha == null) {
             throw new IllegalArgumentException("La fecha de la reseña no puede ser nula.");
         }
-        if (fecha.isAfter(LocalDate.now().plusDays(1))) { // Pequeño margen
+        // Usar la fecha actual para la validación, con un pequeño margen si es necesario.
+        if (fecha.isAfter(LocalDate.now().plusDays(1))) {
             throw new IllegalArgumentException("La fecha de la reseña no puede ser en el futuro.");
         }
         this.fecha = fecha;
@@ -127,8 +132,8 @@ public class Resenna {
     public String toString() {
         return "Resenna{" +
                 "id=" + id +
-                ", idCliente=" + idCliente +
-                ", idTrabajador=" + idTrabajador +
+                ", cliente=" + (cliente != null ? cliente.getId() : "null") +
+                ", trabajador=" + (trabajador != null ? trabajador.getId() : "null") +
                 ", calificacion=" + calificacion +
                 ", fecha=" + fecha +
                 '}';

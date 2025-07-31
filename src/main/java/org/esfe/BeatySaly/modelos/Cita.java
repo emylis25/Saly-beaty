@@ -12,32 +12,39 @@ public class Cita {
     @Column(name = "id_cita")
     private int id;
 
-    @Column(name = "id_cliente", nullable = false)
-    private int idCliente;
+    // Relaciones de Muchos a Uno. JPA se encargará de gestionar las claves foráneas.
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente cliente;
 
+    // Nota: El campo "telefono" es un atributo de la Cita, no de la relación.
     @Column(name = "telefono", length = 15)
-    private int telefono;
+    private String telefono; // Recomendado usar String para teléfonos.
 
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaHora;
 
-    @Column(name = "id_trabajador", nullable = false)
-    private int idTrabajador;
+    @ManyToOne
+    @JoinColumn(name = "id_trabajador", nullable = false)
+    private Trabajador trabajador;
 
-    @Column(name = "id_servicio", nullable = false)
-    private int idServicio;
+    @ManyToOne
+    @JoinColumn(name = "id_servicio", nullable = false)
+    private Servicio servicio;
 
     public Cita() {
     }
 
-    public Cita(int id, int idCliente, int telefono, LocalDateTime fechaHora, int idTrabajador, int idServicio) {
+    // El constructor también debe usar los objetos, no los IDs.
+    public Cita(int id, Cliente cliente, String telefono, LocalDateTime fechaHora, Trabajador trabajador, Servicio servicio) {
         setId(id);
-        setIdCliente(idCliente);
+        setCliente(cliente);
         setTelefono(telefono);
         setFechaHora(fechaHora);
-        setIdTrabajador(idTrabajador);
-        setIdServicio(idServicio);
+        setTrabajador(trabajador);
+        setServicio(servicio);
     }
+
     public int getId() {
         return id;
     }
@@ -49,26 +56,26 @@ public class Cita {
         this.id = id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    // Los getters y setters ahora manipulan los objetos de las entidades.
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        if (idCliente <= 0) {
-            throw new IllegalArgumentException("El ID del cliente debe ser un número positivo.");
+    public void setCliente(Cliente cliente) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente de la cita no puede ser nulo.");
         }
-        this.idCliente = idCliente;
+        this.cliente = cliente;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
-        if (telefono <= 0) {
-            throw new IllegalArgumentException("El teléfono no puede ser un valor negativo o cero.");
+    public void setTelefono(String telefono) {
+        if (telefono == null || telefono.trim().isEmpty()) {
+            throw new IllegalArgumentException("El teléfono no puede estar vacío.");
         }
-
         this.telefono = telefono;
     }
 
@@ -80,35 +87,34 @@ public class Cita {
         if (fechaHora == null) {
             throw new IllegalArgumentException("La fecha y hora de la cita no pueden ser nulas.");
         }
-        if (fechaHora.isBefore(LocalDateTime.now().minusMinutes(5))) { // Pequeño margen para la hora actual
+        if (fechaHora.isBefore(LocalDateTime.now().minusMinutes(5))) {
             throw new IllegalArgumentException("La fecha y hora de la cita no pueden ser en el pasado.");
         }
         this.fechaHora = fechaHora;
     }
 
-    public int getIdTrabajador() {
-        return idTrabajador;
+    public Trabajador getTrabajador() {
+        return trabajador;
     }
 
-    public void setIdTrabajador(int idTrabajador) {
-        if (idTrabajador <= 0) {
-            throw new IllegalArgumentException("El ID del trabajador debe ser un número positivo.");
+    public void setTrabajador(Trabajador trabajador) {
+        if (trabajador == null) {
+            throw new IllegalArgumentException("El trabajador de la cita no puede ser nulo.");
         }
-        this.idTrabajador = idTrabajador;
+        this.trabajador = trabajador;
     }
 
-    public int getIdServicio() {
-        return idServicio;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setIdServicio(int idServicio) {
-        if (idServicio <= 0) {
-            throw new IllegalArgumentException("El ID del servicio debe ser un número positivo.");
+    public void setServicio(Servicio servicio) {
+        if (servicio == null) {
+            throw new IllegalArgumentException("El servicio de la cita no puede ser nulo.");
         }
-        this.idServicio = idServicio;
+        this.servicio = servicio;
     }
 
-    // --- equals(), hashCode(), toString() ---
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,11 +132,11 @@ public class Cita {
     public String toString() {
         return "Cita{" +
                 "id=" + id +
-                ", idCliente=" + idCliente +
+                ", cliente=" + (cliente != null ? cliente.getId() : "null") + // Muestra el ID del cliente
                 ", telefono='" + telefono + '\'' +
                 ", fechaHora=" + fechaHora +
-                ", idTrabajador=" + idTrabajador +
-                ", idServicio=" + idServicio +
+                ", trabajador=" + (trabajador != null ? trabajador.getId() : "null") + // Muestra el ID del trabajador
+                ", servicio=" + (servicio != null ? servicio.getId() : "null") + // Muestra el ID del servicio
                 '}';
     }
 }

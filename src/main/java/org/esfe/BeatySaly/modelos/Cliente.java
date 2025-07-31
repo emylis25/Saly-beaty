@@ -31,6 +31,12 @@ public class Cliente {
     private String password;
     private String rol;
 
+    @OneToMany(mappedBy = "cliente")
+    private Set<Cita> citas;
+
+    @OneToMany(mappedBy = "cliente")
+    private Set<Resenna> resenas;
+
     public Cliente(){
 
     }
@@ -104,6 +110,21 @@ public class Cliente {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+    public Set<Cita> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(Set<Cita> citas) {
+        this.citas = citas;
+    }
+
+    public Set<Resenna> getResenas() {
+        return resenas;
+    }
+
+    public void setResenas(Set<Resenna> resenas) {
+        this.resenas = resenas;
     }
 
     @Override

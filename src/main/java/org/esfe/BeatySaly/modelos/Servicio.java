@@ -21,7 +21,7 @@ public class Servicio {
     private String descripcion;
 
     @Column(name = "duracion", nullable = false)
-//    @Convert(converter = DurationConverter.class)
+     @Convert(converter = DurationConverter.class)
     private Duration duracion;
 
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)

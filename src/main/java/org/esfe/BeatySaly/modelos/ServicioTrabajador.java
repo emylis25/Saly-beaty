@@ -11,14 +11,13 @@ public class ServicioTrabajador {
     @Column(name = "id_servicio_trabajador")
     private int id;
 
-    // Puedes usar @ManyToOne si quieres mapear las relaciones directamente aquí
-    // @ManyToOne
-    // @JoinColumn(name = "id_servicio", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_servicio", nullable = false)
     @Column(name = "id_servicio", nullable = false)
     private int idServicio;
 
-    // @ManyToOne
-    // @JoinColumn(name = "id_trabajador", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_trabajador", nullable = false)
     @Column(name = "id_trabajador", nullable = false)
     private int idTrabajador;
 
