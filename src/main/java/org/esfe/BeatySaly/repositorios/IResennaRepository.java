@@ -13,11 +13,20 @@ import java.util.List;
 
 
 @Repository
-public interface IResennaRepository extends JpaRepository<Cita, Integer> {
+public interface IResennaRepository extends JpaRepository<Resenna, Integer> {
 
-    // Buscar reseñas por nombre del trabajdor
-    @Query("SELECT r FROM Resenna r WHERE LOWER(r.trabajador.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))")
-    Page<Resenna> findByTrabajadorNombreContainingIgnoreCase(@Param("nombre") String nombre, Pageable pageable);
-
-
+    @Query("""
+        SELECT r
+        FROM Resenna r
+        WHERE
+            (:nombreTrabajador IS NULL OR LOWER(r.trabajador.nombre) LIKE LOWER(CONCAT('%', :nombreTrabajador, '%')))
+        AND (:nombreCliente IS NULL OR LOWER(r.cliente.nombre) LIKE LOWER(CONCAT('%', :nombreCliente, '%')))
+        AND (:calificacion IS NULL OR r.calificacion = :calificacion)
+    """)
+    Page<Resenna> buscarResennas(
+            @Param("nombreTrabajador") String nombreTrabajador,
+            @Param("nombreCliente") String nombreCliente,
+            @Param("calificacion") Integer calificacion,
+            Pageable pageable
+    );
 }
