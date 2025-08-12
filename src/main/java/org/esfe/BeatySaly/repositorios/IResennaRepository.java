@@ -19,7 +19,5 @@ public interface IResennaRepository extends JpaRepository<Cita, Integer> {
     @Query("SELECT r FROM Resenna r WHERE LOWER(r.trabajador.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))")
     Page<Resenna> findByTrabajadorNombreContainingIgnoreCase(@Param("nombre") String nombre, Pageable pageable);
 
-    //  busca por calificaciones
-    List<Resenna> findByCalificacionGreaterThanEqual(int calificacionMinima);
 
 }
