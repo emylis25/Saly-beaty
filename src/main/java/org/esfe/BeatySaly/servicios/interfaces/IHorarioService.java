@@ -1,12 +1,17 @@
 package org.esfe.BeatySaly.servicios.interfaces;
 
 import org.esfe.BeatySaly.modelos.Horario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface IHorarioService {
 
     // Obtener todos los horarios
     List<Horario> obtenerTodos();
+
+    Page<Horario> buscarTodosPaginados(Pageable pageable);
 
     // Obtener un horario por ID
     Horario obtenerPorId(Integer id);
@@ -19,4 +24,6 @@ public interface IHorarioService {
 
     // Eliminar un horario por ID
     void eliminar(Integer id);
+
+    Page<Horario> buscarPorTrabajadorYDia(String nombreTrabajador, String diaSemana, Pageable pageable);
 }
