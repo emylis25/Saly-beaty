@@ -14,7 +14,8 @@ public interface IClienteService {
     Page<Cliente> buscarTodosPaginados(Pageable pageable);
 
     // Obtener un cliente por ID
-    Cliente obtenerPorId(Integer id);
+
+    Cliente obtenerPorId(int id);
 
     // Crear un nuevo cliente
     Cliente crear(Cliente cliente);
@@ -23,7 +24,7 @@ public interface IClienteService {
     Cliente actualizar(Cliente cliente);
 
     // Eliminar un cliente por ID
-    void eliminar(Integer id);
+    void eliminar(int id);
 
     Page<Cliente> buscarPorNombreYCorreo(String nombre, String correo, Pageable pageable);
 }

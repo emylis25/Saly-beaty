@@ -14,7 +14,8 @@ public interface IHorarioService {
     Page<Horario> buscarTodosPaginados(Pageable pageable);
 
     // Obtener un horario por ID
-    Horario obtenerPorId(Integer id);
+    Horario obtenerPorId(int id);
+
 
     // Crear un nuevo horario
     Horario crear(Horario horario);
@@ -23,7 +24,7 @@ public interface IHorarioService {
     Horario actualizar(Horario horario);
 
     // Eliminar un horario por ID
-    void eliminar(Integer id);
+    void eliminar(int id);
 
     Page<Horario> buscarPorTrabajadorYDia(String nombreTrabajador, String diaSemana, Pageable pageable);
 }

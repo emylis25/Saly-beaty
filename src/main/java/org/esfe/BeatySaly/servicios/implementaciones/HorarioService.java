@@ -28,7 +28,7 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public Horario obtenerPorId(Integer id) {
+    public Horario obtenerPorId(int id) {
         Optional<Horario> horario = horarioRepository.findById(id);
         return horario.orElse(null);
     }
@@ -50,7 +50,7 @@ public class HorarioService implements IHorarioService {
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(int id) {
         horarioRepository.deleteById(id);
     }
 

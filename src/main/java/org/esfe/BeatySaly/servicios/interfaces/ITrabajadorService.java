@@ -14,7 +14,7 @@ public interface ITrabajadorService {
     Page<Trabajador> buscarTodosPaginados(Pageable pageable);
 
     // Obtener un trabajador por ID
-    Trabajador obtenerPorId(Integer id);
+    Trabajador obtenerPorId(int id);
 
     // Crear un nuevo trabajador
     Trabajador crear(Trabajador trabajador);
@@ -23,7 +23,7 @@ public interface ITrabajadorService {
     Trabajador actualizar(Trabajador trabajador);
 
     // Eliminar un trabajador por ID
-    void eliminar(Integer id);
+    void eliminar(int id);
 
     Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable);
 }
