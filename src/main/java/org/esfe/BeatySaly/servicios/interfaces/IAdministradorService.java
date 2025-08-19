@@ -24,7 +24,7 @@ public interface IAdministradorService {
     void eliminar(int id);
 
     // Buscar administrador por username
-    Administrador buscarPorUsername(String username);
+    Administrador buscarPorcorreo(String correo);
 
     Page<Administrador> obtenerTodosPaginados(Pageable pageable);
 }

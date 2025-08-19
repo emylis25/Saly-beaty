@@ -54,7 +54,7 @@ public class AdministradorService  implements IAdministradorService {
     }
 
     @Override
-    public Administrador buscarPorUsername(String username) {
-        return administradorRepository.findByUsername(username);
+    public Administrador buscarPorcorreo(String correo) {
+        return administradorRepository.findByCorreo(correo);
     }
 }
