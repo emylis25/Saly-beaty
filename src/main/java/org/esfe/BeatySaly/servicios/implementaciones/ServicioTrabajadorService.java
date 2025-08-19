@@ -23,7 +23,7 @@ public class ServicioTrabajadorService implements IServicioTrabajadorService {
     }
 
     @Override
-    public ServicioTrabajador obtenerPorId(Integer id) {
+    public ServicioTrabajador obtenerPorId(int id) {
         Optional<ServicioTrabajador> servicioTrabajador = servicioTrabajadorRepository.findById(id);
         return servicioTrabajador.orElse(null);
     }
@@ -45,7 +45,7 @@ public class ServicioTrabajadorService implements IServicioTrabajadorService {
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(int id) {
         servicioTrabajadorRepository.deleteById(id);
     }
 

@@ -11,7 +11,7 @@ public interface IServicioTrabajadorService {
     List<ServicioTrabajador> obtenerTodos();
 
     // Obtener un servicio de trabajador por ID
-    ServicioTrabajador obtenerPorId(Integer id);
+    ServicioTrabajador obtenerPorId(int id);
 
     // Crear un nuevo servicio de trabajador
     ServicioTrabajador crear(ServicioTrabajador servicioTrabajador);
@@ -20,7 +20,7 @@ public interface IServicioTrabajadorService {
     ServicioTrabajador actualizar(ServicioTrabajador servicioTrabajador);
 
     // Eliminar un servicio de trabajador por ID
-    void eliminar(Integer id);
+    void eliminar(int id);
 
     // Obtener una lista paginada de servicios de trabajadores con filtros opcionales
     Page<ServicioTrabajador> buscarPorTrabajadorYServicio(String nombreTrabajador, String nombreServicio, Pageable pageable);

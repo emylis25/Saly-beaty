@@ -27,7 +27,7 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public Cliente obtenerPorId(Integer id) {
+    public Cliente obtenerPorId(int id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElse(null);
     }
@@ -49,7 +49,7 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(int id) {
         clienteRepository.deleteById(id);
     }
 
