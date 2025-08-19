@@ -28,7 +28,7 @@ public class AdministradorService  implements IAdministradorService {
     }
 
     @Override
-    public Administrador obtenerPorId(Integer id) {
+    public Administrador obtenerPorId(int id) {
         Optional<Administrador> administrador = administradorRepository.findById(id);
         return administrador.orElse(null);
     }
@@ -47,7 +47,7 @@ public class AdministradorService  implements IAdministradorService {
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(int id) {
         if (administradorRepository.existsById(id)) {
             administradorRepository.deleteById(id);
         }

@@ -12,7 +12,7 @@ public interface IAdministradorService {
     List<Administrador> obtenerTodos();
 
     // Obtener un administrador por ID
-    Administrador obtenerPorId(Integer id);
+    Administrador obtenerPorId(int id);
 
     // Crear un nuevo administrador
     Administrador crear(Administrador administrador);
@@ -21,7 +21,7 @@ public interface IAdministradorService {
     Administrador actualizar(Administrador administrador);
 
     // Eliminar un administrador por ID
-    void eliminar(Integer id);
+    void eliminar(int id);
 
     // Buscar administrador por username
     Administrador buscarPorUsername(String username);

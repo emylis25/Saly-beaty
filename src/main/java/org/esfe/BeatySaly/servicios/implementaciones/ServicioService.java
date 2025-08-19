@@ -28,7 +28,7 @@ public class ServicioService implements IServicioService {
     }
 
     @Override
-    public Servicio buscarPorId(Integer id) {
+    public Servicio buscarPorId(int id) {
         Optional<Servicio> servicio = servicioRepository.findById(id);
         return servicio.orElse(null);
     }
@@ -50,7 +50,7 @@ public class ServicioService implements IServicioService {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminarPorId(int id) {
         servicioRepository.deleteById(id);
     }
 

@@ -28,7 +28,7 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public Cita buscarPorId(Integer id) {
+    public Cita buscarPorId(int id) {
         Optional<Cita> cita = citaRepository.findById(id);
         return cita.orElse(null);
     }
@@ -50,7 +50,7 @@ public class CitaService implements ICitaService {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminarPorId(int id) {
         citaRepository.deleteById(id);
     }
 

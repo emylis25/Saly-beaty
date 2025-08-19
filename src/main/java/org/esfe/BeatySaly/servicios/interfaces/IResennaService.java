@@ -11,13 +11,13 @@ public interface IResennaService {
 
     Page<Resenna> buscarTodosPaginados(Pageable pageable);
 
-    Resenna buscarPorId(Integer id);
+    Resenna buscarPorId(int id);
 
     Resenna crear(Resenna resenna);
 
     Resenna editar(Resenna resenna);
 
-    void eliminarPorId(Integer id);
+    void eliminarPorId(int id);
 
     Page<Resenna> buscarPorNombreTrabajadorYCliente(
             String nombreTrabajador,

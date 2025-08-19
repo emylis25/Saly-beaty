@@ -27,7 +27,7 @@ public class ResennaService implements IResennaService {
     }
 
     @Override
-    public Resenna buscarPorId(Integer id) {
+    public Resenna buscarPorId(int id) {
         Optional<Resenna> resenna = resennaRepository.findById(id);
         return resenna.orElse(null);
     }
@@ -49,7 +49,7 @@ public class ResennaService implements IResennaService {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminarPorId(int id) {
         resennaRepository.deleteById(id);
     }
 

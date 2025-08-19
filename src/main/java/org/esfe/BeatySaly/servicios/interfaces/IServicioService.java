@@ -12,13 +12,13 @@ public interface IServicioService {
 
     Page<Servicio> buscarTodosPaginados(Pageable pageable);
 
-    Servicio buscarPorId(Integer id);
+    Servicio buscarPorId(int id);
 
     Servicio crear(Servicio servicio);
 
     Servicio editar(Servicio servicio);
 
-    void eliminarPorId(Integer id);
+    void eliminarPorId(int id);
 
     Page<Servicio> buscarPorNombreServicio(
             String nombreServicio,

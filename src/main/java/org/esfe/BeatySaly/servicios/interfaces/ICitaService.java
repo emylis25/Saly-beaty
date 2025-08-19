@@ -12,13 +12,13 @@ public interface ICitaService {
 
         Page<Cita> buscarTodosPaginados(Pageable pageable);
 
-        Cita buscarPorId(Integer id);
+        Cita buscarPorId(int id);
 
         Cita crear(Cita cita);
 
         Cita editar(Cita cita);
 
-        void eliminarPorId(Integer id);
+        void eliminarPorId(int id);
 
         Page<Cita> buscarPorNombreTrabajadorYCliente(
                 String nombreTrabajador,
