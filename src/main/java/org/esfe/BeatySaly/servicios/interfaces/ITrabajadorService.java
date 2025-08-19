@@ -1,12 +1,17 @@
 package org.esfe.BeatySaly.servicios.interfaces;
 
 import org.esfe.BeatySaly.modelos.Trabajador;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface ITrabajadorService {
 
     // Obtener todos los trabajadores
     List<Trabajador> obtenerTodos();
+
+    Page<Trabajador> buscarTodosPaginados(Pageable pageable);
 
     // Obtener un trabajador por ID
     Trabajador obtenerPorId(Integer id);
@@ -19,4 +24,6 @@ public interface ITrabajadorService {
 
     // Eliminar un trabajador por ID
     void eliminar(Integer id);
+
+    Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable);
 }
