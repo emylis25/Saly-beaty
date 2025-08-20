@@ -55,4 +55,9 @@ public class ServicioTrabajadorService implements IServicioTrabajadorService {
                 nombreTrabajador, nombreServicio, pageable
         );
     }
+
+    @Override
+    public Page<ServicioTrabajador> buscarTodosPaginados(Pageable pageable) {
+        return servicioTrabajadorRepository.findAll(pageable);
+    }
 }
