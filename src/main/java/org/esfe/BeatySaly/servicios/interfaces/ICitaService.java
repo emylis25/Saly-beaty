@@ -25,4 +25,4 @@ public interface ICitaService {
                 String nombreCliente,
                 Pageable pageable
         );
-    }
+}

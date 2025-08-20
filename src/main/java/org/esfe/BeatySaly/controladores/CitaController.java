@@ -53,4 +53,12 @@ public class CitaController {
         citaService.eliminarPorId(id);
     }
 
+    // Buscar citas por nombre de trabajador y cliente
+    @GetMapping("/buscar")
+    public Page<Cita> buscarPorTrabajadorYCliente(
+            @RequestParam(required = false) String trabajador,
+            @RequestParam(required = false) String cliente,
+            Pageable pageable) {
+        return citaService.buscarPorNombreTrabajadorYCliente(trabajador, cliente, pageable);
+    }
 }
