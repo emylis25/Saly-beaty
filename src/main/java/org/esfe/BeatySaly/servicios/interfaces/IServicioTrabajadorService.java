@@ -24,4 +24,6 @@ public interface IServicioTrabajadorService {
 
     // Obtener una lista paginada de servicios de trabajadores con filtros opcionales
     Page<ServicioTrabajador> buscarPorTrabajadorYServicio(String nombreTrabajador, String nombreServicio, Pageable pageable);
+
+    Page<ServicioTrabajador> buscarTodosPaginados(Pageable pageable);
 }
