@@ -30,27 +30,27 @@
 
                 <!-- 🔹 Opciones para CLIENTE -->
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
-                    <a class="nav-link" th:href="@{/productos}">Ver Productos</a>
+                    <a class="nav-link" th:href="@{/productos}">Quienes somos?</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
-                    <a class="nav-link" th:href="@{/mis-ordenes}">Mis Órdenes</a>
+                    <a class="nav-link" th:href="@{/mis-ordenes}">Servicios</a>
                 </li>
 
                 <!-- 🔹 Opciones para TRABAJADOR -->
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{/ordenes}">Gestionar Órdenes</a>
+                    <a class="nav-link" th:href="@{/ordenes}">Agendar cita</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{/clientes}">Atender Clientes</a>
+                    <a class="nav-link" th:href="@{/clientes}">Reseñas</a>
                 </li>
 
                 <!-- 🔹 Opciones para ADMIN -->
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <!-- <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/usuarios}">Administrar Usuarios</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/reportes}">Reportes</a>
-                </li>
+                </li> -->
 
             </ul>
         </div>
@@ -58,7 +58,7 @@
         <!-- 🔹 Mostrar usuario logueado y logout -->
         <div class="d-flex">
             <span class="navbar-text text-white me-3" sec:authentication="name"></span>
-            <a class="btn btn-outline-light" th:href="@{/logout}">Salir</a>
+            <a class="btn btn-outline-light" th:href="@{/logout}">Iniciar sesion</a>
         </div>
     </div>
 </nav>
