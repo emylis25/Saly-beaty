@@ -13,4 +13,10 @@ public class HomeController {
     public String index() {
         return "home/index";
     }
+
+    @GetMapping("/vistaAdministrador")
+    public String vistaAdministrador() {
+        // Retorna el nombre del template Thymeleaf
+        return "Administrador/vistaAdministrador";
+    }
 }

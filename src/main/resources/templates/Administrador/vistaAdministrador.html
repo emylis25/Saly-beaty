@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beauty by Saly</title>
 
-    <!-- Bootstrap 5 -->
+    <title>Salon de belleza</title>
+
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-
-<!-- 🔹 Incluir fragmento navbar -->
 <div th:replace="layout/navbar :: navbar"></div>
 
+<body>
+<div style="padding: 2rem;">
+    <h2> Beauty by Saly </h2>
+    <p>Explora nuestros servicios y reserva tu cita fácilmente  es un gusto atenderle .</p>
+</div>
+
 <div class="container mt-5">
-    <h1>Bienvenida a Beauty by Saly</h1>
-    <p>Explora nuestros servicios y reserva tu cita fácilmente.</p>
+    <h1>Bienvenida a la vista de trabajador Beauty by Saly</h1>
+    <p>mostraremos cada una de las opciones de trabajador .</p>
 
     <!-- Ejemplo de botones de reporte -->
     <a th:href="@{/clientes/reportegeneral/attachment}" class="btn btn-outline-primary me-2">Descargar reporte general</a>
     <a th:href="@{/clientes/reportegeneral/inline}" target="_blank" class="btn btn-outline-primary">Imprimir reporte general</a>
 </div>
 
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
