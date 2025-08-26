@@ -15,14 +15,34 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    // Inyecta el bean DataSource proporcionado por Spring Boot
+    private final DataSource dataSource;
+
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
-    public UserDetailsManager customUsers(DataSource dataSource){
+    public UserDetailsManager users() {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        users.setUsersByUsernameQuery("select login, clave, status from usuarios where login = ?");
-        users.setAuthoritiesByUsernameQuery("select u.login, r.nombre from usuario_rol ur " +
-                "inner join usuarios u on u.id = ur.usuario_id " +
-                "inner join roles r on r.id = ur.rol_id " +
-                "where u.login = ?");
+
+        // Consulta SQL para encontrar el usuario en cualquiera de las tres tablas
+        users.setUsersByUsernameQuery(
+                "SELECT correo, password, true as enabled FROM administradores WHERE correo = ? " +
+                        "UNION ALL " +
+                        "SELECT correo, password, true as enabled FROM trabajadores WHERE correo = ? " +
+                        "UNION ALL " +
+                        "SELECT correo, password, true as enabled FROM clientes WHERE correo = ?"
+        );
+
+        // Consulta SQL para obtener el rol (autoridad) del usuario
+        users.setAuthoritiesByUsernameQuery(
+                "SELECT correo, 'ROLE_ADMIN' as authority FROM administradores WHERE correo = ? " +
+                        "UNION ALL " +
+                        "SELECT correo, 'ROLE_TRABAJADOR' as authority FROM trabajadores WHERE correo = ? " +
+                        "UNION ALL " +
+                        "SELECT correo, 'ROLE_CLIENTE' as authority FROM clientes WHERE correo = ?"
+        );
 
         return users;
     }
