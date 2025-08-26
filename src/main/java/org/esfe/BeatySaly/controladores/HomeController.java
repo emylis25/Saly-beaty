@@ -19,4 +19,8 @@ public class HomeController {
         // Retorna el nombre del template Thymeleaf
         return "Administrador/vistaAdministrador";
     }
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "home/login"; // Nombre del archivo HTML en src/main/resources/templates
+    }
 }
