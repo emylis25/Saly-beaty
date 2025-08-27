@@ -1,9 +1,13 @@
 package org.esfe.BeatySaly.config;
 
+import org.esfe.BeatySaly.servicios.implementaciones.AuthService;
+import org.esfe.BeatySaly.servicios.interfaces.IAuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -22,30 +26,37 @@ public class SecurityConfig {
         this.dataSource = dataSource;
     }
 
-    @Bean
-    public UserDetailsManager users() {
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+    @Autowired
+    private IAuthService authService;
 
-        // Consulta SQL para encontrar el usuario en cualquiera de las tres tablas
-        users.setUsersByUsernameQuery(
-                "SELECT correo, password, true as enabled FROM administradores WHERE correo = ? " +
-                        "UNION ALL " +
-                        "SELECT correo, password, true as enabled FROM trabajadores WHERE correo = ? " +
-                        "UNION ALL " +
-                        "SELECT correo, password, true as enabled FROM clientes WHERE correo = ?"
-        );
-
-        // Consulta SQL para obtener el rol (autoridad) del usuario
-        users.setAuthoritiesByUsernameQuery(
-                "SELECT correo, 'ROLE_ADMIN' as authority FROM administradores WHERE correo = ? " +
-                        "UNION ALL " +
-                        "SELECT correo, 'ROLE_TRABAJADOR' as authority FROM trabajadores WHERE correo = ? " +
-                        "UNION ALL " +
-                        "SELECT correo, 'ROLE_CLIENTE' as authority FROM clientes WHERE correo = ?"
-        );
-
-        return users;
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(AuthService authService) {
+//        return authService;
+//    }
+//    @Bean
+//    public UserDetailsManager users() {
+//        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+//
+//        // Consulta SQL para encontrar el usuario en cualquiera de las tres tablas
+//        users.setUsersByUsernameQuery(
+//                "SELECT correo, password, true as enabled FROM administradores WHERE correo = ? " +
+//                        "UNION ALL " +
+//                        "SELECT correo, password, true as enabled FROM trabajadores WHERE correo = ? " +
+//                        "UNION ALL " +
+//                        "SELECT correo, password, true as enabled FROM clientes WHERE correo = ?"
+//        );
+//
+//        // Consulta SQL para obtener el rol (autoridad) del usuario
+//        users.setAuthoritiesByUsernameQuery(
+//                "SELECT correo, 'ROLE_ADMIN' as authority FROM administradores WHERE correo = ? " +
+//                        "UNION ALL " +
+//                        "SELECT correo, 'ROLE_TRABAJADOR' as authority FROM trabajadores WHERE correo = ? " +
+//                        "UNION ALL " +
+//                        "SELECT correo, 'ROLE_CLIENTE' as authority FROM clientes WHERE correo = ?"
+//        );
+//
+//        return users;
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,8 +73,13 @@ public class SecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .usernameParameter("correo")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/vistaAdministrador", true)
+                        .failureUrl("/login?error=true")
                         .permitAll()
-                        .defaultSuccessUrl("/home", true)
+
+
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")

@@ -1,7 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary"
-     th:fragment="navbar"
-     xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+     th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/home}">Beauty by Saly</a>
@@ -15,35 +13,34 @@
             <ul class="navbar-nav me-auto">
 
                 <!-- Opciones CLIENTE -->
-                <li class="nav-item" >
-                    <a class="nav-link" th:href="@{/vistaAdministrador}">administrador</a>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/vistaAdministrador}">Administrador</a>
                 </li>
-                <li class="nav-item" >
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/mis-ordenes}">Agendar Cita</a>
                 </li>
-                <!-- jemima lo ves ? xD -->
+
                 <!-- Opciones TRABAJADOR -->
-                <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
+                <li class="nav-item" sec:authorize="hasAuthority('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/ordenes}">Mis Horarios</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
+                <li class="nav-item" sec:authorize="hasAuthority('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/clientes}">Mi Perfil</a>
                 </li>
 
                 <!-- Opciones ADMIN -->
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" th:href="@{/usuarios}">Mis trabajadores</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" th:href="@{/reportes}">RP Citas</a>
                 </li>
-
             </ul>
 
             <!-- Usuario logueado + Logout -->
             <div class="d-flex">
-                <span class="navbar-text text-white me-3" sec:authentication="nombre"></span>
-                <a class="btn btn-outline-light" th:href="@{/logout}">iniciar sesion</a>
+                <span class="navbar-text text-white me-3" sec:authentication="name"></span>
+                <a class="btn btn-outline-light" th:href="@{/logout}">Cerrar sesión</a>
             </div>
         </div>
     </div>

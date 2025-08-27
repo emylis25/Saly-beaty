@@ -50,4 +50,39 @@ public class AuthRepository {
         }
         return null;
     }
+
+
+    /**
+     * Obtiene el rol del usuario.
+     */
+    public String getRole(String correo, String tableName) {
+        if (!isTableAllowed(tableName)) return null;
+
+        String sql = "SELECT role FROM " + tableName + " WHERE correo = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("role"); // Devuelve "ROLE_ADMIN", "ROLE_TRABAJADOR", etc.
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Valida que la tabla sea permitida para evitar inyección SQL.
+     */
+    private boolean isTableAllowed(String tableName) {
+        List<String> allowedTables = Arrays.asList("administradores", "trabajadores", "clientes");
+        if (!allowedTables.contains(tableName)) {
+            System.err.println("Intento de acceso a tabla no permitida: " + tableName);
+            return false;
+        }
+        return true;
+    }
 }
