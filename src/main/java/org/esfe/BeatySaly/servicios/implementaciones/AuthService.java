@@ -24,19 +24,24 @@ public class AuthService implements IAuthService {
 
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        // Enfoque simplificado: usa un solo método que busca en todas las tablas
         String[] tables = {"administradores", "trabajadores", "clientes"};
 
-        for (String rol : tables) {
-            String passwordHash = authRepository.getPasswordHash(correo, rol);
-            if (passwordHash != null) {
-                // Si el usuario es encontrado, Spring Security se encargará de la contraseña.
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + rol.toUpperCase());
-                return new User(correo, passwordHash, Collections.singletonList(authority));
+        for (String tabla : tables) {
+            String passwordHash = authRepository.getPasswordHash(correo, tabla);
+            String role = authRepository.getRole(correo, tabla); // ← viene como "ADMIN", "TRABAJADOR", etc.
+
+            if (passwordHash != null && role != null) {
+                // Agregamos el prefijo "ROLE_" para que Spring lo reconozca
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.toUpperCase());
+                return new User(
+                        correo,
+                        passwordHash,
+                        true, true, true, true,
+                        Collections.singletonList(authority)
+                );
             }
         }
 
-        // Si el bucle termina, el usuario no fue encontrado
         throw new UsernameNotFoundException("Usuario no encontrado: " + correo);
     }
 }
