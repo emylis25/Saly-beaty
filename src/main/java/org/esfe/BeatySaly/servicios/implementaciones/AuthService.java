@@ -32,7 +32,7 @@ public class AuthService implements IAuthService {
 
             if (passwordHash != null && role != null) {
                 // Agregamos el prefijo "ROLE_" para que Spring lo reconozca
-                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.toUpperCase());
+                GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.trim().toUpperCase());
                 return new User(
                         correo,
                         passwordHash,

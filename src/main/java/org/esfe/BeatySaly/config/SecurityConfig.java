@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/home", "/login", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/vistaAdministrador", "/usuarios", "/reportes").hasRole("ADMIN")
-                        .requestMatchers("/ordenes", "/clientes").hasRole("TRABAJADOR")
-                        .requestMatchers("/mis-ordenes").hasRole("CLIENTE")
+                        .requestMatchers("/vistaTrabajador", "/clientes").hasRole("TRABAJADOR")
+                        .requestMatchers("/vistaCliente").hasRole("CLIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -55,8 +55,8 @@ public class SecurityConfig {
                             String role = authentication.getAuthorities().iterator().next().getAuthority();
                             switch (role) {
                                 case "ROLE_ADMIN" -> response.sendRedirect("/vistaAdministrador");
-                                case "ROLE_TRABAJADOR" -> response.sendRedirect("/ordenes");
-                                case "ROLE_CLIENTE" -> response.sendRedirect("/mis-ordenes");
+                                case "ROLE_TRABAJADOR" -> response.sendRedirect("/vistaTrabajador");
+                                case "ROLE_CLIENTE" -> response.sendRedirect("/vistaCliente");
                                 default -> response.sendRedirect("/home");
                             }
                         })
