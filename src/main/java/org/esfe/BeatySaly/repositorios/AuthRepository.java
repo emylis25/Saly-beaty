@@ -58,14 +58,14 @@ public class AuthRepository {
     public String getRole(String correo, String tableName) {
         if (!isTableAllowed(tableName)) return null;
 
-        String sql = "SELECT role FROM " + tableName + " WHERE correo = ?";
+        String sql = "SELECT rol FROM " + tableName + " WHERE correo = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, correo);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("role"); // Devuelve "ROLE_ADMIN", "ROLE_TRABAJADOR", etc.
+                    return rs.getString("rol"); // Devuelve "ROLE_ADMIN", "ROLE_TRABAJADOR", etc.
                 }
             }
         } catch (SQLException e) {

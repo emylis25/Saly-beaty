@@ -21,18 +21,18 @@
                 </li>
 
                 <!-- Opciones TRABAJADOR -->
-                <li class="nav-item" sec:authorize="hasAuthority('TRABAJADOR')">
+                <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/ordenes}">Mis Horarios</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('TRABAJADOR')">
+                <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/clientes}">Mi Perfil</a>
                 </li>
 
                 <!-- Opciones ADMIN -->
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/usuarios}">Mis trabajadores</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/reportes}">RP Citas</a>
                 </li>
             </ul>
