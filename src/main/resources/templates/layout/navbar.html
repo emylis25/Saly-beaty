@@ -37,13 +37,20 @@
                 </li>
             </ul>
 
-            <!-- Usuario logueado + Logout -->
-            <div class="d-flex align-items-center">
-         <span class="navbar-text text-white me-3">
-            <strong sec:authentication="name"></strong> |
-             <span class="text-warning" sec:authentication="principal.authorities"></span>
-        </span>
-                <a class="btn btn-outline-light" th:href="@{/logout}">Cerrar sesión</a>
+            <!-- Si el usuario NO está autenticado -->
+            <div sec:authorize="!isAuthenticated()">
+                <a class="btn btn-outline-light" th:href="@{/login}">Iniciar sesión</a>
+            </div>
+
+            <!-- Si el usuario SÍ está autenticado -->
+            <div sec:authorize="isAuthenticated()">
+              <span class="navbar-text text-white me-3">
+              <strong sec:authentication="name"></strong> |
+              <span class="text-warning" sec:authentication="principal.authorities"></span>
+             </span>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-outline-light">Cerrar sesión</button>
+                </form>
             </div>
         </div>
     </div>

@@ -16,13 +16,21 @@
 <div th:replace="layout/navbar :: navbar"></div>
 
 
-<div class="container mt-5">
+<<div class="container mt-5">
+
+    <!-- 🔔 Alerta de sesión cerrada -->
+    <div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show" role="alert">
+        ¡Sesión cerrada correctamente!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <h1>Bienvenida a Beauty by Saly home</h1>
     <p>Explora nuestros servicios y reserva tu cita fácilmente.</p>
 
     <!-- Ejemplo de botones de reporte -->
     <a th:href="@{/clientes/reportegeneral/attachment}" class="btn btn-outline-primary me-2">Descargar reporte general</a>
     <a th:href="@{/clientes/reportegeneral/inline}" target="_blank" class="btn btn-outline-primary">Imprimir reporte general</a>
+
 </div>
 
 </body>
