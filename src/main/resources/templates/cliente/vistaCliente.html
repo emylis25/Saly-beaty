@@ -14,21 +14,138 @@
 </head>
 <div th:replace="~{layout/navbar :: navbar}"></div>
 
+<style>
+  body {
+    background: linear-gradient(to right, #fdfbfb, #ebedee);
+    font-family: 'Segoe UI', sans-serif;
+    color: #444;
+  }
+
+  h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #b85c8e;
+  }
+
+  .lead {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
+
+  .carousel-caption {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 1rem;
+    color: #333;
+  }
+
+  section {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .btn-primary {
+    background-color: #b85c8e;
+    border: none;
+  }
+
+  .btn-danger {
+    background-color: #e57373;
+    border: none;
+  }
+
+  .list-unstyled li {
+    margin-bottom: 0.5rem;
+  }
+
+  .navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+</style>
 <body>
-<div style="padding: 2rem;">
-  <h2> Beauty by Saly cliente </h2>
-  <p>Explora nuestros servicios y reserva tu cita fácilmente  es un gusto atenderle .</p>
-</div>
-
 <div class="container mt-5">
-  <h1>Bienvenida a la vista de cliente Beauty by Saly</h1>
-  <p>mostraremos cada una de las opciones de cliente .</p>
+  <!-- Título principal -->
+  <div class="text-center mb-4">
+    <h1>Bienvenidos a BEATY SALY</h1>
+    <p class="lead">Tu espacio de belleza y bienestar</p>
+  </div>
 
-  <!-- Ejemplo de botones de reporte -->
-  <a th:href="@{/clientes/reportegeneral/attachment}" class="btn btn-outline-primary me-2">Descargar reporte general</a>
-  <a th:href="@{/clientes/reportegeneral/inline}" target="_blank" class="btn btn-outline-primary">Imprimir reporte general</a>
+  <!-- Carrusel de imágenes -->
+  <div id="carruselSalon" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/imagene/carrusel1.jpg" class="d-block w-100" alt="Recepción del salón">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Bienvenida cálida</h5>
+          <p>Tu experiencia comienza desde la entrada.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/imagene/carrusel2.jpg" class="d-block w-100" alt="Zona de tratamientos">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Zona de tratamientos</h5>
+          <p>Relájate mientras cuidamos de ti.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/imagene/carrusel3.jpeg" class="d-block w-100" alt="Equipo profesional">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Equipo profesional</h5>
+          <p>Expertos en belleza y bienestar.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carruselSalon" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carruselSalon" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+  <!-- Sección: Sobre nosotros -->
+  <section class="mb-5">
+    <h2>¿Quiénes somos?</h2>
+    <p>
+      Somos un equipo apasionado por la estética y el cuidado personal. En nuestro salón, combinamos experiencia, productos de calidad y atención personalizada para que cada visita sea una experiencia única.
+    </p>
+  </section>
+
+  <!-- Sección: Cómo llegar -->
+  <section class="mb-5">
+    <h2>¿Cómo llegar?</h2>
+    <p>
+      Nos encontramos en [Dirección exacta]. Puedes llegar fácilmente en transporte público o en vehículo propio. ¡Tenemos estacionamiento disponible!
+    </p>
+    <div class="ratio ratio-16x9">
+      <iframe src="https://www.google.com/maps/embed?pb=[tu código de mapa]" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Sección: Contacto -->
+  <section class="mb-5">
+    <h2>Contáctanos</h2>
+    <ul class="list-unstyled">
+      <li><strong>Teléfono:</strong> 4538-9023</li>
+      <li><strong>WhatsApp:</strong> 4538-9023</li>
+      <li><strong>Email:</strong> beatysaly@gmial.com</li>
+      <li><strong>Horario:</strong> Lunes a sábado, 9:00 a.m. - 6:00 p.m.</li>
+    </ul>
+  </section>
+
+  <!-- Sección: Redes sociales -->
+  <section class="mb-5">
+    <h2>Síguenos</h2>
+    <p>Estamos en redes sociales para que no te pierdas ninguna promoción o novedad:</p>
+    <a href="[Facebook URL]" class="btn btn-primary me-2">Facebook</a>
+    <a href="[Instagram URL]" class="btn btn-danger">Instagram</a>
+  </section>
 </div>
-
+</body>
+</html>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -41,8 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/login", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/vistaAdministrador", "/usuarios", "/reportes").hasRole("ADMIN")
+                        .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagene/**").permitAll()                        .requestMatchers("/vistaAdministrador", "/usuarios", "/reportes").hasRole("ADMIN")
                         .requestMatchers("/vistaTrabajador", "/clientes").hasRole("TRABAJADOR")
                         .requestMatchers("/vistaCliente").hasRole("CLIENTE")
                         .anyRequest().authenticated()
