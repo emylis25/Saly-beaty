@@ -1,6 +1,8 @@
 package org.esfe.BeatySaly.controladores;
 
 
+import org.esfe.BeatySaly.modelos.Cliente;
+import org.esfe.BeatySaly.modelos.Trabajador;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

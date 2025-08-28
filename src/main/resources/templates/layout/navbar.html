@@ -22,7 +22,7 @@
 
                 <!-- Opciones TRABAJADOR -->
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{/create}">Mis Horarios</a>
+                    <a class="nav-link" th:href="@{/trabajadores/create}">Mis Horarios</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/clientes}">Mi Perfil</a>
