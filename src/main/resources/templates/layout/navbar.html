@@ -22,7 +22,7 @@
 
                 <!-- Opciones TRABAJADOR -->
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{/ordenes}">Mis Horarios</a>
+                    <a class="nav-link" th:href="@{/create}">Mis Horarios</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
                     <a class="nav-link" th:href="@{/clientes}">Mi Perfil</a>
@@ -30,7 +30,7 @@
 
                 <!-- Opciones ADMIN -->
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/usuarios}">Mis trabajadores</a>
+                    <a class="nav-link" th:href="@{/trabajadoresA}">Mis trabajadores</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/reportes}">RP Citas</a>

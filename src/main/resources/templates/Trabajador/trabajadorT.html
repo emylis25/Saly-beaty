@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beauty by Saly</title>
+</head>
+<body>
+
+<div th:replace="~{layout/navbar :: navbar}"></div>
+
+<main class="container mt-4">
+    <h2>Gestión de Trabajadores</h2>
+
+    <a th:href="@{/trabajador/create}" class="btn btn-success mb-3">Crear Nuevo Trabajador</a>
+
+    <div th:if="${msg}" class="alert alert-success" role="alert" th:text="${msg}"></div>
+    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo Electrónico</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trabajador : ${trabajadores.content}">
+            <td th:text="${trabajador.id}"></td>
+            <td th:text="${trabajador.nombre}"></td>
+            <td th:text="${trabajador.apellido}"></td>
+            <td th:text="${trabajador.email}"></td>
+            <td>
+                <a th:href="@{/trabajador/details/{id}(id=${trabajador.id})}" class="btn btn-info btn-sm">Ver</a>
+                <a th:href="@{/trabajador/edit/{id}(id=${trabajador.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/trabajador/remove/{id}(id=${trabajador.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav th:if="${trabajadores.totalPages > 0}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == (pageNumber - 1) ? 'active' : ''}" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{/trabajadores(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+</main>
+
+</body>
+</html>
