@@ -58,4 +58,11 @@ public class TrabajadorService implements ITrabajadorService {
     public Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable) {
         return trabajadorRepository.findByNombreContainingIgnoreCase(nombre, pageable);
     }
+
+    @Override
+    public Page<Trabajador> buscarPorCorreo(String correo, Pageable pageable) {
+        return trabajadorRepository.findByNombreContainingIgnoreCase(correo, pageable);
+    }
+
 }
+

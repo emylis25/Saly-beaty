@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,15 +69,20 @@ public class TrabajadorController {
         return "redirect:/trabajadores";
     }
 
-    @GetMapping("/details/{id}")
-    public String details(@PathVariable("id") int id, Model model){
-        Trabajador trabajador = trabajadorService.obtenerPorId(id);
+    @GetMapping("/details")
+    public String details(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String correo = authentication.getName(); // Esto devuelve el username (correo si lo configuraste así)
+
+        Trabajador trabajador = trabajadorService.buscarPorCorreo(correo);
         if (trabajador == null) {
             return "redirect:/trabajadores";
         }
+
         model.addAttribute("trabajador", trabajador);
         return "trabajador/details";
     }
+
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model){

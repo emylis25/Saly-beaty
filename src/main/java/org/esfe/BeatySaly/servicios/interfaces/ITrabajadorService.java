@@ -26,4 +26,6 @@ public interface ITrabajadorService {
     void eliminar(int id);
 
     Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable);
+
+    Page<Trabajador> buscarPorCorreo(String correo, Pageable pageable);
 }
