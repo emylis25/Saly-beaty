@@ -10,13 +10,13 @@ import java.util.Optional;
 @Repository
 public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
 
-    // Método existente para búsqueda paginada
+//     Metodo existente para búsqueda paginada
     Page<Cliente> findByNombreContainingIgnoreCaseAndCorreoContainingIgnoreCase(
             String nombre,
             String correo,
             Pageable pageable
     );
 
-    // ✅ Nuevo método para buscar por correo directamente
+    // ✅ Nuevo metodo para buscar por correo directamente
     Optional<Cliente> findByCorreo(String correo);
 }
