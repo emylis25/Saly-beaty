@@ -17,7 +17,7 @@
                     <a class="nav-link" th:href="@{/vistaCliente}">Administrador</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
-                    <a class="nav-link" th:href="@{/mis-ordenes}">Agendar Cita</a>
+                    <a class="nav-link" th:href="@{/citas/nueva}">Agendar Cita</a>
                 </li>
 
                 <!-- Opciones TRABAJADOR -->

@@ -16,7 +16,8 @@ public interface IClienteService {
     // Obtener un cliente por ID
 
     Cliente obtenerPorId(int id);
-
+    // Obtener un cliente por correo
+    Cliente obtenerPorCorreo(String correo);
     // Crear un nuevo cliente
     Cliente crear(Cliente cliente);
 

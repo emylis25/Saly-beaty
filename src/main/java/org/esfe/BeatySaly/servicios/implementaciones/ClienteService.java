@@ -54,6 +54,12 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
+    public Cliente obtenerPorCorreo(String correo) {
+        Optional<Cliente> cliente = clienteRepository.findByCorreo(correo);
+        return cliente.orElse(null); // O puedes lanzar una excepción si prefieres
+    }
+
+    @Override
     public Page<Cliente> buscarPorNombreYCorreo(String nombre, String correo, Pageable pageable) {
         return clienteRepository.findByNombreContainingIgnoreCaseAndCorreoContainingIgnoreCase(
                 nombre, correo, pageable

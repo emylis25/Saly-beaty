@@ -1,6 +1,7 @@
 package org.esfe.BeatySaly.servicios.implementaciones;
 
 import org.esfe.BeatySaly.modelos.ServicioTrabajador;
+import org.esfe.BeatySaly.modelos.Trabajador;
 import org.esfe.BeatySaly.repositorios.IServicioTrabajadorRepository;
 import org.esfe.BeatySaly.servicios.interfaces.IServicioTrabajadorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicioTrabajadorService implements IServicioTrabajadorService {
@@ -59,5 +61,14 @@ public class ServicioTrabajadorService implements IServicioTrabajadorService {
     @Override
     public Page<ServicioTrabajador> buscarTodosPaginados(Pageable pageable) {
         return servicioTrabajadorRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Trabajador> obtenerTrabajadoresPorServicio(Integer idServicio) {
+        return servicioTrabajadorRepository.findByServicioId(idServicio)
+                .stream()
+                .map(ServicioTrabajador::getTrabajador)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

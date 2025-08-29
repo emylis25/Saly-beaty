@@ -1,6 +1,7 @@
 package org.esfe.BeatySaly.servicios.interfaces;
 
 import org.esfe.BeatySaly.modelos.ServicioTrabajador;
+import org.esfe.BeatySaly.modelos.Trabajador;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
@@ -26,4 +27,6 @@ public interface IServicioTrabajadorService {
     Page<ServicioTrabajador> buscarPorTrabajadorYServicio(String nombreTrabajador, String nombreServicio, Pageable pageable);
 
     Page<ServicioTrabajador> buscarTodosPaginados(Pageable pageable);
+
+    List<Trabajador> obtenerTrabajadoresPorServicio(Integer idServicio);
 }

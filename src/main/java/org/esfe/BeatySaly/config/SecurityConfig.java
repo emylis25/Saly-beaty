@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/vistaAdministrador", "/usuarios", "/reportes").hasRole("ADMIN")
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         .requestMatchers("/vistaCliente").hasRole("CLIENTE")
+                        .requestMatchers("/vistaCliente", "/citas/nueva").hasRole("CLIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
