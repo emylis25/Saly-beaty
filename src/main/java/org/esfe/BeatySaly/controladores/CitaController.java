@@ -11,6 +11,7 @@ import org.esfe.BeatySaly.servicios.interfaces.ITrabajadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,12 +38,16 @@ public class CitaController {
     @Autowired
     private IServicioService servicioService;
 
-    @GetMapping
+
+
+    @GetMapping("/listarCitas")
+    @PreAuthorize("hasRole('ADMIN')")
     public String listarCitas(Model model, Pageable pageable) {
         Page<Cita> citas = citaService.buscarTodosPaginados(pageable);
         model.addAttribute("citas", citas);
-        return "citas/lista";
+        return "citas/listarCitas"; // plantilla Thymeleaf
     }
+
 
     @GetMapping("/buscar")
     public String buscarPorTrabajadorYCliente(@RequestParam(required = false) String trabajador,
@@ -53,9 +58,8 @@ public class CitaController {
         model.addAttribute("citas", citas);
         model.addAttribute("trabajador", trabajador);
         model.addAttribute("cliente", cliente);
-        return "citas/lista";
+        return "citas/listarCitas";
     }
-
     @GetMapping("/nueva")
     public String mostrarFormularioCita(Model model) {
         Cita cita = new Cita();

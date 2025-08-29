@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Citas</title>
@@ -14,7 +14,9 @@
     <div th:if="${exito}" class="alert alert-success" th:text="${exito}"></div>
 
     <!-- Botón Nueva Cita -->
-    <a class="btn btn-primary mb-2" th:href="@{/citas/nueva}">Nueva Cita</a>
+    <div sec:authorize="hasRole('CLIENTE')">
+        <a th:href="@{/citas/nueva}">Nueva cita</a>
+    </div>
 
     <!-- Tabla de citas -->
     <table class="table table-bordered table-striped">

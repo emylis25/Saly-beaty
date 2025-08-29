@@ -14,7 +14,7 @@
                 <!-- prueba de rama -->
                 <!-- Opciones CLIENTE -->
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
-                    <a class="nav-link" th:href="@{/vistaCliente}">Administrador</a>
+                    <a class="nav-link" th:href="@{/vistaCliente}">¿Quienes somos?</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
                     <a class="nav-link" th:href="@{/citas/nueva}">Agendar Cita</a>
@@ -33,7 +33,7 @@
                     <a class="nav-link" th:href="@{/trabajadoresA}">Mis trabajadores</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/reportes}">RP Citas</a>
+                    <a class="nav-link" th:href="@{citas/listarCitas}">RP Citas</a>
                 </li>
             </ul>
 
