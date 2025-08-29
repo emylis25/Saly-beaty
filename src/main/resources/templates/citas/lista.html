@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Citas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-4">
+
+    <h2>Lista de Citas</h2>
+
+    <!-- Mensajes de éxito -->
+    <div th:if="${exito}" class="alert alert-success" th:text="${exito}"></div>
+
+    <!-- Botón Nueva Cita -->
+    <a class="btn btn-primary mb-2" th:href="@{/citas/nueva}">Nueva Cita</a>
+
+    <!-- Tabla de citas -->
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Trabajador</th>
+            <th>Servicio</th>
+            <th>Fecha y Hora</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cita : ${citas.content}">
+            <td th:text="${cita.id}">1</td>
+            <td th:text="${cita.cliente != null ? cita.cliente.nombre : 'N/A'}">Cliente</td>
+            <td th:text="${cita.trabajador != null ? cita.trabajador.nombre : 'N/A'}">Trabajador</td>
+            <td th:text="${cita.servicio != null ? cita.servicio.nombreServicio : 'N/A'}">Servicio</td>
+            <td th:text="${cita.fechaHora != null ? #temporals.format(cita.fechaHora, 'yyyy-MM-dd HH:mm') : 'N/A'}">Fecha</td>
+            <td>
+                <a th:href="@{/citas/editar/{id}(id=${cita.id})}" class="btn btn-sm btn-warning">Editar</a>
+                <a th:href="@{/citas/eliminar/{id}(id=${cita.id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('¿Seguro que desea eliminar esta cita?');">Eliminar</a>
+            </td>
+        </tr>
+        <tr th:if="${citas.content.size() == 0}">
+            <td colspan="6" class="text-center">No hay citas registradas</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <nav th:if="${citas.totalPages > 1}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${citas.first} ? 'disabled'">
+                <a class="page-link" th:href="@{/citas(page=${citas.number - 1})}">Anterior</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, citas.totalPages - 1)}"
+                th:classappend="${citas.number == i} ? 'active'">
+                <a class="page-link" th:href="@{/citas(page=${i})}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${citas.last} ? 'disabled'">
+                <a class="page-link" th:href="@{/citas(page=${citas.number + 1})}">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

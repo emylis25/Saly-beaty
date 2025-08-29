@@ -98,8 +98,8 @@ public class CitaController {
     }
 
     @PostMapping
-    public String guardarCita(@ModelAttribute Cita cita, RedirectAttributes redirectAttrs) {
-        // 🔐 Obtener el correo del usuario autenticado
+    public String guardarCita(@ModelAttribute Cita cita, RedirectAttributes redirectAttrs, Model model) {
+        // Obtener el correo del cliente autenticado
         String correo = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof UserDetails) {
@@ -107,22 +107,23 @@ public class CitaController {
             correo = userDetails.getUsername();
         }
 
-        // 🔍 Buscar el cliente por correo
+        // Buscar el cliente por correo y asignarlo
         Cliente cliente = clienteService.obtenerPorCorreo(correo);
         cita.setCliente(cliente);
 
-        // 🔄 Reconstruir trabajador y servicio desde sus IDs
+        // Reconstruir trabajador y servicio
         Trabajador trabajador = trabajadorService.obtenerPorId(cita.getTrabajador().getId());
         Servicio servicio = servicioService.buscarPorId(cita.getServicio().getId());
         cita.setTrabajador(trabajador);
         cita.setServicio(servicio);
 
-        // 💾 Guardar la cita
-        citaService.crear(cita);
+        // Guardar la cita
+        Cita citaGuardada = citaService.crear(cita);
 
-        // ✅ Redirigir con mensaje de éxito
-        redirectAttrs.addFlashAttribute("exito", "Cita registrada correctamente.");
-        return "redirect:/citas";
+        // Pasar la cita a la vista de confirmación
+        model.addAttribute("cita", citaGuardada);
+
+        return "citas/confirmacion"; // nueva vista para el cliente
     }
 
 

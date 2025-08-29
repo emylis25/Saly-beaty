@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cita Confirmada</title>
+</head>
+<body>
+<h1>¡Tu cita ha sido registrada!</h1>
+<div>
+    <p><strong>Cliente:</strong> <span th:text="${cita.cliente.nombre}"></span></p>
+    <p><strong>Servicio:</strong> <span th:text="${cita.servicio.nombreServicio}"></span></p>
+    <p><strong>Trabajador:</strong> <span th:text="${cita.trabajador.nombre}"></span></p>
+    <p><strong>Fecha y hora:</strong> <span th:text="${#temporals.format(cita.fechaHora, 'yyyy-MM-dd HH:mm')}"></span></p>
+</div>
+
+<a href="/vistaCliente">Volver al inicio</a>
+</body>
+</html>
