@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reporte de Citas</title>
+</head>
+<body>
+<h3>Reporte de Citas</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Trabajador</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${citas}">
+        <td th:text="${item.cliente.nombre}"></td>
+        <td th:text="${item.servicio.nombreServicio}"></td>
+        <td th:text="${item.trabajador.nombre}"></td>
+        <td th:text="${#temporals.format(item.fechaHora, 'dd/MM/yyyy HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

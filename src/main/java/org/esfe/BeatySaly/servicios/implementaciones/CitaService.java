@@ -56,7 +56,7 @@ public class CitaService implements ICitaService {
 
     @Override
     public Page<Cita> buscarPorNombreTrabajadorYCliente(String nombreTrabajador, String nombreCliente, Pageable pageable) {
-        return citaRepository.findByTrabajadorNombreContainingIgnoreCaseAndClienteNombreContainingIgnoreCase(
+        return citaRepository.findByTrabajador_NombreContainingIgnoreCaseAndCliente_NombreContainingIgnoreCase(
                 nombreTrabajador, nombreCliente, pageable
         );
     }

@@ -3,6 +3,7 @@ package org.esfe.BeatySaly.config;
 import org.esfe.BeatySaly.servicios.implementaciones.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,9 +43,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**").permitAll()
-                        .requestMatchers("/vistaAdministrador","/listarCitas","/reportes").hasRole("ADMIN")
+                        // admin
+                        .requestMatchers("/vistaAdministrador", "/listarCitas", "/reportes").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/citas/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/citas/**").hasRole("ADMIN")
+                        // trabajador
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
-                        .requestMatchers("/vistaCliente").hasRole("CLIENTE")
+                        // cliente
                         .requestMatchers("/vistaCliente", "/citas/nueva").hasRole("CLIENTE")
                         .anyRequest().authenticated()
                 )

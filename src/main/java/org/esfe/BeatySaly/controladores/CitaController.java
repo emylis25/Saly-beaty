@@ -8,9 +8,14 @@ import org.esfe.BeatySaly.servicios.interfaces.ICitaService;
 import org.esfe.BeatySaly.servicios.interfaces.IClienteService;
 import org.esfe.BeatySaly.servicios.interfaces.IServicioService;
 import org.esfe.BeatySaly.servicios.interfaces.ITrabajadorService;
+import org.esfe.BeatySaly.servicios.utilerias.PdfClienteGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -38,6 +46,8 @@ public class CitaController {
     @Autowired
     private IServicioService servicioService;
 
+    @Autowired
+    private PdfClienteGeneratorService pdfGeneratorService;
 
 
     @GetMapping("/listarCitas")
@@ -49,17 +59,25 @@ public class CitaController {
     }
 
 
-    @GetMapping("/buscar")
-    public String buscarPorTrabajadorYCliente(@RequestParam(required = false) String trabajador,
-                                              @RequestParam(required = false) String cliente,
-                                              Pageable pageable,
-                                              Model model) {
-        Page<Cita> citas = citaService.buscarPorNombreTrabajadorYCliente(trabajador, cliente, pageable);
+    @GetMapping("/citas/listarCitas")
+    public String buscarPorTrabajadorYCliente(
+            @RequestParam(name = "nombreTrabajador", required = false, defaultValue = "") String nombreTrabajador,
+            @RequestParam(name = "nombreCliente", required = false, defaultValue = "") String nombreCliente,
+            Pageable pageable,
+            Model model) {
+
+        // Siempre devolverá algo aunque los campos estén vacíos
+        Page<Cita> citas = citaService.buscarPorNombreTrabajadorYCliente(nombreTrabajador, nombreCliente, pageable);
+
         model.addAttribute("citas", citas);
-        model.addAttribute("trabajador", trabajador);
-        model.addAttribute("cliente", cliente);
+        model.addAttribute("nombreTrabajador", nombreTrabajador);
+        model.addAttribute("nombreCliente", nombreCliente);
+
         return "citas/listarCitas";
     }
+
+
+
     @GetMapping("/nueva")
     public String mostrarFormularioCita(Model model) {
         Cita cita = new Cita();
@@ -144,5 +162,23 @@ public class CitaController {
         citaService.eliminarPorId(id);
         redirectAttrs.addFlashAttribute("exito", "Cita eliminada correctamente.");
         return "redirect:/citas";
+    }
+
+    @GetMapping("/reportegeneral/{visualizacion}")
+    public ResponseEntity<byte[]> ReporteGeneral(@PathVariable("visualizacion") String visualizacion) {
+
+        try {
+            List<Cita> cita = citaService.obtenerTodos();
+
+            // Genera el PDF. Si hay un error aquí, la excepción será capturada.
+            byte[] pdfBytes = pdfGeneratorService.generatePdfFromHtml("reportes/rpCitas", "citas", cita);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            // inline= vista previa, attachment=descarga el archivo
+            headers.add("Content-Disposition", visualizacion+"; filename=reporte_general_Citas.pdf");
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

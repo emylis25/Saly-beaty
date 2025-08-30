@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICitaRepository extends JpaRepository<Cita, Integer> {
 
-    Page<Cita> findByTrabajadorNombreContainingIgnoreCaseAndClienteNombreContainingIgnoreCase(
+    // Búsqueda por nombre del trabajador y nombre del cliente
+    Page<Cita> findByTrabajador_NombreContainingIgnoreCaseAndCliente_NombreContainingIgnoreCase(
             String nombreTrabajador,
             String nombreCliente,
             Pageable pageable
