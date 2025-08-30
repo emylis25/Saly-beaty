@@ -19,10 +19,11 @@ public interface IClienteService {
     // Obtener un cliente por correo
     Cliente obtenerPorCorreo(String correo);
     // Crear un nuevo cliente
-    Cliente crear(Cliente cliente);
-
-    // Actualizar un cliente existente
-    Cliente actualizar(Cliente cliente);
+//    Cliente crear(Cliente cliente);
+//
+//    // Actualizar un cliente existente
+//    Cliente actualizar(Cliente cliente);
+    Cliente guardar(Cliente cliente);
 
     // Eliminar un cliente por ID
     void eliminar(int id);

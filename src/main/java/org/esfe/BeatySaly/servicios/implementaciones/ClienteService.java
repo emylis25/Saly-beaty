@@ -32,17 +32,25 @@ public class ClienteService implements IClienteService {
         return cliente.orElse(null);
     }
 
-    @Override
-    public Cliente crear(Cliente cliente) {
-        if (cliente.getId() != 0) {
-            throw new IllegalArgumentException("El cliente nuevo no debe tener ID");
-        }
-        return clienteRepository.save(cliente);
-    }
+//    @Override
+//    public Cliente crear(Cliente cliente) {
+//        if (cliente.getId() != 0) {
+//            throw new IllegalArgumentException("El cliente nuevo no debe tener ID");
+//        }
+//        return clienteRepository.save(cliente);
+//    }
+//
+//    @Override
+//    public Cliente actualizar(Cliente cliente) {
+//        if (cliente.getId() == 0 || !clienteRepository.existsById(cliente.getId())) {
+//            throw new IllegalArgumentException("El cliente a actualizar no existe");
+//        }
+//        return clienteRepository.save(cliente);
+//    }
 
     @Override
-    public Cliente actualizar(Cliente cliente) {
-        if (cliente.getId() == 0 || !clienteRepository.existsById(cliente.getId())) {
+    public Cliente guardar(Cliente cliente) {
+        if (cliente.getId() != 0 && !clienteRepository.existsById(cliente.getId())) {
             throw new IllegalArgumentException("El cliente a actualizar no existe");
         }
         return clienteRepository.save(cliente);

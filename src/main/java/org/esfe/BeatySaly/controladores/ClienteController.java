@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,10 +65,19 @@ public class ClienteController {
             return "cliente/create";
         }
 
-        clienteService.actualizar(cliente);
-        attributes.addFlashAttribute("msg", "Cliente creado o editado correctamente");
-        return "redirect:/clientes";
+        // 🔒 Encriptar contraseña
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(cliente.getPassword());
+        cliente.setPassword(passwordEncriptada);
+
+        // 👤 Asignar rol fijo
+        cliente.setRol("CLIENTE");
+
+        clienteService.guardar(cliente);
+        attributes.addFlashAttribute("msg", "Cliente creado correctamente");
+        return "redirect:/login";
     }
+
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable("id") int id, Model model){

@@ -42,11 +42,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**").permitAll()
+                        // endpoints públicos
+                        .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**", "/clientes/save", "/clientes/create").permitAll()
                         // admin
                         .requestMatchers("/vistaAdministrador", "/listarCitas", "/reportes").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.GET, "/citas/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.POST, "/citas/**").hasRole("ADMIN")
                         // trabajador
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         // cliente
@@ -74,7 +73,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 );
-
         return http.build();
     }
+
 }
