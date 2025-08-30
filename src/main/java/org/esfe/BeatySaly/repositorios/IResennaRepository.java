@@ -1,11 +1,14 @@
 package org.esfe.BeatySaly.repositorios;
 
 import org.esfe.BeatySaly.modelos.Cita;
+import org.esfe.BeatySaly.modelos.Cliente;
 import org.esfe.BeatySaly.modelos.Resenna;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface IResennaRepository extends JpaRepository<Resenna, Integer> {
@@ -15,4 +18,6 @@ public interface IResennaRepository extends JpaRepository<Resenna, Integer> {
             String nombreCliente,
             Pageable pageable
     );
+    List<Resenna> findByCliente(Cliente cliente);
+
 }

@@ -1,4 +1,5 @@
 package org.esfe.BeatySaly.servicios.interfaces;
+import org.esfe.BeatySaly.modelos.Cliente;
 import org.esfe.BeatySaly.modelos.Resenna;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,4 +26,7 @@ public interface IResennaService {
             Pageable pageable
     );
 
-    Resenna guardar(Resenna resenna);}
+    Resenna guardar(Resenna resenna);
+    List<Resenna> obtenerPorCliente(Cliente cliente);
+
+}

@@ -111,4 +111,21 @@ public class ResennaController {
             Pageable pageable) {
         return resennaService.buscarPorNombreTrabajadorYCliente(trabajador, cliente, pageable);
     }
+
+    @GetMapping("/misResennas")
+    public String verMisResennas(Model model,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+        // Obtener cliente logueado
+        Cliente clienteLogueado = clienteService.obtenerPorCorreo(userDetails.getUsername());
+        if (clienteLogueado == null) {
+            throw new RuntimeException("No se encontró el cliente logueado");
+        }
+
+        // Traer todas las reseñas de ese cliente
+        List<Resenna> misResennas = resennaService.obtenerPorCliente(clienteLogueado);
+        model.addAttribute("resennas", misResennas);
+
+        return "cliente/misResennas"; // template Thymeleaf
+    }
+
 }

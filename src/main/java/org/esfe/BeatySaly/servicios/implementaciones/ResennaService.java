@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +86,14 @@ public class ResennaService implements IResennaService {
     @Override
     public Resenna guardar(Resenna resenna) {
         return crear(resenna); // o editar(resenna), según tu lógica
+    }
+
+    @Override
+    public List<Resenna> obtenerPorCliente(Cliente cliente) {
+        if (cliente == null || cliente.getId() == 0) {
+            throw new IllegalArgumentException("Cliente inválido");
+        }
+        return resennaRepository.findByCliente(cliente);
     }
 
 }
