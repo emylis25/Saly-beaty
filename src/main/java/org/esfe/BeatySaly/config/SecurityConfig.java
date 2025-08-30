@@ -45,8 +45,8 @@ public class SecurityConfig {
                         .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**").permitAll()
                         // admin
                         .requestMatchers("/vistaAdministrador", "/listarCitas", "/reportes").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/citas/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/citas/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET, "/citas/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.POST, "/citas/**").hasRole("ADMIN")
                         // trabajador
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         // cliente

@@ -1,58 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"/>
   <title>Formulario Cita</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<div th:replace="~{layout/navbar :: navbar}"></div>
+
 <body>
-<h1 th:text="${cita.id} != null ? 'Editar Cita' : 'Nueva Cita'"></h1>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card w-50">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4" th:text="${cita.id} != null ? 'Editar Cita' : 'Nueva Cita'"></h3>
 
-<form th:action="@{${formAction}}" th:object="${cita}" method="post">
+      <form th:action="@{${formAction}}" th:object="${cita}" method="post">
 
-  <!-- Cliente (solo lectura) -->
-  <label>Cliente:</label>
-  <input type="text" th:value="${cliente.nombre}" readonly/>
-  <br><br>
+        <!-- Cliente (solo lectura) -->
+        <div class="mb-3">
+          <label class="form-label">Cliente:</label>
+          <input type="text" th:value="${cliente.nombre}" readonly class="form-control"/>
+        </div>
 
-  <label>Correo:</label>
-  <input type="text" th:value="${cliente.correo}" readonly/>
-  <br><br>
+        <div class="mb-3">
+          <label class="form-label">Correo:</label>
+          <input type="text" th:value="${cliente.correo}" readonly class="form-control"/>
+        </div>
 
-  <label>Teléfono:</label>
-  <input type="text" th:value="${cliente.telefono}" readonly/>
-  <br><br>
+        <div class="mb-3">
+          <label class="form-label">Teléfono:</label>
+          <input type="text" th:value="${cliente.telefono}" readonly class="form-control"/>
+        </div>
 
-  <!-- Fecha y hora -->
-  <label>Fecha y Hora:</label>
-  <input type="datetime-local" th:field="*{fechaHora}" required/>
-  <br><br>
+        <!-- Fecha y hora -->
+        <div class="mb-3">
+          <label class="form-label">Fecha y Hora:</label>
+          <input type="datetime-local" th:field="*{fechaHora}" required class="form-control"/>
+        </div>
 
-  <!-- Trabajador -->
-  <label>Trabajador:</label>
-  <select th:field="*{trabajador.id}" required>
-    <option th:if="${cita.trabajador == null || cita.trabajador.id == null}" value="" disabled selected>Seleccione</option>
-    <option th:each="trab : ${trabajadores}"
-            th:value="${trab.id}"
-            th:text="${trab.nombre}"
-            th:selected="${cita.trabajador != null} ? ${trab.id} == ${cita.trabajador.id} : false">
-    </option>
-  </select>
-  <br><br>
+        <!-- Trabajador -->
+        <div class="mb-3">
+          <label class="form-label">Trabajador:</label>
+          <select th:field="*{trabajador.id}" required class="form-select">
+            <option th:if="${cita.trabajador == null || cita.trabajador.id == null}" value="" disabled selected>Seleccione</option>
+            <option th:each="trab : ${trabajadores}"
+                    th:value="${trab.id}"
+                    th:text="${trab.nombre}"
+                    th:selected="${cita.trabajador != null} ? ${trab.id} == ${cita.trabajador.id} : false">
+            </option>
+          </select>
+        </div>
 
-  <!-- Servicio -->
-  <label>Servicio:</label>
-  <select th:field="*{servicio.id}" required>
-    <option th:if="${cita.servicio == null || cita.servicio.id == null}" value="" disabled selected>Seleccione</option>
-    <option th:each="ser : ${servicios}"
-            th:value="${ser.id}"
-            th:text="${ser.nombreServicio}"
-            th:selected="${cita.servicio != null} ? ${ser.id} == ${cita.servicio.id} : false">
-    </option>
-  </select>
-  <br><br>
+        <!-- Servicio -->
+        <div class="mb-3">
+          <label class="form-label">Servicio:</label>
+          <select th:field="*{servicio.id}" required class="form-select">
+            <option th:if="${cita.servicio == null || cita.servicio.id == null}" value="" disabled selected>Seleccione</option>
+            <option th:each="ser : ${servicios}"
+                    th:value="${ser.id}"
+                    th:text="${ser.nombreServicio}"
+                    th:selected="${cita.servicio != null} ? ${ser.id} == ${cita.servicio.id} : false">
+            </option>
+          </select>
+        </div>
 
-  <button type="submit">Guardar</button>
-</form>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
 
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
