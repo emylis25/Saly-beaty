@@ -3,55 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Cliente</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>Registrar nuevo cliente</h1>
+<div th:replace="~{layout/navbar :: navbar}"></div>
+<body class="bg-light">
 
-<!-- Mensajes flash -->
-<div th:if="${msg}" style="color: green;">
-    <p th:text="${msg}"></p>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Registrar nuevo cliente</h3>
+
+                    <!-- Mensajes flash -->
+                    <div th:if="${msg}" class="alert alert-success" role="alert">
+                        <p th:text="${msg}"></p>
+                    </div>
+                    <div th:if="${error}" class="alert alert-danger" role="alert">
+                        <p th:text="${error}"></p>
+                    </div>
+
+                    <!-- Formulario -->
+                    <form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" th:field="*{nombre}" id="nombre" class="form-control" required>
+                            <div th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}"></div>
+                        </div>
+
+                        <!-- Correo -->
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo:</label>
+                            <input type="email" th:field="*{correo}" id="correo" class="form-control" required>
+                            <div th:if="${#fields.hasErrors('correo')}" class="text-danger" th:errors="*{correo}"></div>
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono:</label>
+                            <input type="number" th:field="*{telefono}" id="telefono" class="form-control" required>
+                            <div th:if="${#fields.hasErrors('telefono')}" class="text-danger" th:errors="*{telefono}"></div>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" th:field="*{password}" id="password" class="form-control" required minlength="6">
+                            <div th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a th:href="@{/login}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div th:if="${error}" style="color: red;">
-    <p th:text="${error}"></p>
-</div>
 
-<!-- Formulario -->
-<form th:action="@{/clientes/save}" th:object="${cliente}" method="post">
-
-    <!-- Nombre -->
-    <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" th:field="*{nombre}" id="nombre" required>
-        <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
-    </div>
-
-    <!-- Correo -->
-    <div>
-        <label for="correo">Correo:</label>
-        <input type="email" th:field="*{correo}" id="correo" required>
-        <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
-    </div>
-
-    <!-- Teléfono -->
-    <div>
-        <label for="telefono">Teléfono:</label>
-        <input type="number" th:field="*{telefono}" id="telefono" required>
-        <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
-    </div>
-
-    <!-- Contraseña -->
-    <div>
-        <label for="password">Contraseña:</label>
-        <input type="password" th:field="*{password}" id="password" required minlength="6">
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-    </div>
-
-    <br>
-    <div>
-        <button type="submit">Guardar</button>
-        <a th:href="@{/login}">Cancelar</a>
-    </div>
-</form>
-
+<!-- Bootstrap JS (opcional para componentes interactivos) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
