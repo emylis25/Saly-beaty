@@ -65,6 +65,9 @@
   }
 </style>
 <body>
+<div th:if="${msg}" class="alert alert-success" role="alert">
+  <span th:text="${msg}"></span>
+</div>
 <div class="container mt-5">
   <!-- Título principal -->
   <div class="text-center mb-4">
@@ -143,6 +146,7 @@
     <a href="[Facebook URL]" class="btn btn-primary me-2">Facebook</a>
     <a href="[Instagram URL]" class="btn btn-danger">Instagram</a>
   </section>
+
 </div>
 </body>
 </html>

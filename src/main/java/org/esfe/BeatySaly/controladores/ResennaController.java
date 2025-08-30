@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.List;
@@ -73,13 +74,16 @@ public class ResennaController {
 
     @PostMapping("/guardar")
     public String guardarResenna(@ModelAttribute("resenna") Resenna resenna,
-                                 @AuthenticationPrincipal UserDetails userDetails) {
+                                 @AuthenticationPrincipal UserDetails userDetails,
+                                  RedirectAttributes redirectAttributes) {
         // Buscar cliente logueado en la BD
         Cliente clienteLogueado = clienteService.obtenerPorCorreo(userDetails.getUsername());
         if (clienteLogueado == null) {
             throw new RuntimeException("No se encontró el cliente logueado");
         }
         resenna.setCliente(clienteLogueado); // ✅ forzar cliente persistente
+
+        redirectAttributes.addFlashAttribute("msg", "¡Reseña creada correctamente!");
 
         resennaService.crear(resenna); // usa crear(), no guardar() genérico si quieres validaciones
         return "redirect:/vistaCliente";
