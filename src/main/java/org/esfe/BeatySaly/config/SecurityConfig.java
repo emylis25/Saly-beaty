@@ -49,7 +49,7 @@ public class SecurityConfig {
                         // trabajador
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         // cliente
-                        .requestMatchers("/vistaCliente", "/citas/nueva").hasRole("CLIENTE")
+                        .requestMatchers("/vistaCliente", "/citas/nueva", "/resennas/crear").hasRole("CLIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -24,4 +24,5 @@ public interface IResennaService {
             String nombreCliente,
             Pageable pageable
     );
-}
+
+    Resenna guardar(Resenna resenna);}

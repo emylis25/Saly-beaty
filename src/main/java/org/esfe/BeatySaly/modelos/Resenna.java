@@ -29,6 +29,7 @@ public class Resenna {
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
+
     public Resenna() {
     }
 
@@ -52,6 +53,14 @@ public class Resenna {
             throw new IllegalArgumentException("El ID de la reseña no puede ser negativo.");
         }
         this.id = id;
+    }
+
+    // ✅ Método PrePersist para asignar fecha si es null
+    @PrePersist
+    public void prePersist() {
+        if (this.fecha == null) {
+            this.fecha = LocalDate.now();
+        }
     }
 
     // Getters y setters para las entidades Cliente y Trabajador.

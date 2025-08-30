@@ -1,20 +1,34 @@
 package org.esfe.BeatySaly.controladores;
 
+import org.esfe.BeatySaly.modelos.Cliente;
 import org.esfe.BeatySaly.modelos.Resenna;
+import org.esfe.BeatySaly.modelos.Trabajador;
+import org.esfe.BeatySaly.servicios.interfaces.IClienteService;
 import org.esfe.BeatySaly.servicios.interfaces.IResennaService;
+import org.esfe.BeatySaly.servicios.interfaces.ITrabajadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/resennas")
 public class ResennaController {
 
     @Autowired
     private IResennaService resennaService;
+    @Autowired
+    private ITrabajadorService trabajadorService;
+
+    @Autowired
+    private IClienteService clienteService;
 
     // Obtener todas las reseñas
     @GetMapping
@@ -35,10 +49,42 @@ public class ResennaController {
     }
 
     // Crear nueva reseña
-    @PostMapping
-    public Resenna crear(@RequestBody Resenna resenna) {
-        return resennaService.crear(resenna);
+    @GetMapping("/crear")
+    public String formCrearResenna(Model model,
+                                   @AuthenticationPrincipal UserDetails userDetails) {
+        Resenna resenna = new Resenna();
+        resenna.setTrabajador(new Trabajador());
+
+        // Buscar cliente logueado en la DB
+        Cliente clienteLogueado = clienteService.obtenerPorCorreo(userDetails.getUsername());
+        if (clienteLogueado == null) {
+            throw new RuntimeException("No se encontró el cliente logueado con correo: " + userDetails.getUsername());
+        }
+        resenna.setCliente(clienteLogueado); // Ahora sí, entidad con ID persistente
+
+        model.addAttribute("resenna", resenna);
+
+        // Pasar lista de trabajadores para el formulario
+        List<Trabajador> trabajadores = trabajadorService.obtenerTodos();
+        model.addAttribute("trabajadores", trabajadores);
+
+        return "resennas/crear";
     }
+
+    @PostMapping("/guardar")
+    public String guardarResenna(@ModelAttribute("resenna") Resenna resenna,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+        // Buscar cliente logueado en la BD
+        Cliente clienteLogueado = clienteService.obtenerPorCorreo(userDetails.getUsername());
+        if (clienteLogueado == null) {
+            throw new RuntimeException("No se encontró el cliente logueado");
+        }
+        resenna.setCliente(clienteLogueado); // ✅ forzar cliente persistente
+
+        resennaService.crear(resenna); // usa crear(), no guardar() genérico si quieres validaciones
+        return "redirect:/vistaCliente";
+    }
+
 
     // Actualizar reseña existente
     @PutMapping("/{id}")

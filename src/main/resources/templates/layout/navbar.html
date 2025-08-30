@@ -19,6 +19,9 @@
                 <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
                     <a class="nav-link" th:href="@{/citas/nueva}">Agendar Cita</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                    <a class="nav-link" th:href="@{/resennas/crear}">Reseña Nueva</a>
+                </li>
 
                 <!-- Opciones TRABAJADOR -->
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
