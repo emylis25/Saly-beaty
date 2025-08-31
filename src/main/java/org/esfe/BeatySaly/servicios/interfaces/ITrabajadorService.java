@@ -22,10 +22,12 @@ public interface ITrabajadorService {
     // Actualizar un trabajador existente
     Trabajador actualizar(Trabajador trabajador);
 
+    Trabajador buscarPorCorreo(String correo);
+
     // Eliminar un trabajador por ID
-    void eliminar(int id);
+
+
+    void remove(int id);
 
     Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable);
-
-    Page<Trabajador> buscarPorCorreo(String correo, Pageable pageable);
 }

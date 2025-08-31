@@ -42,7 +42,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**").permitAll()
-                        .requestMatchers("/vistaAdministrador", "/usuarios", "/reportes").hasRole("ADMIN")
+                        .requestMatchers("/vistaAdministrador", "/trabajador/details", "/reportes").hasRole("ADMIN")
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         .requestMatchers("/vistaCliente").hasRole("CLIENTE")
                         .anyRequest().authenticated()
