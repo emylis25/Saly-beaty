@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Factura Electrónica</title>
+    <style> </style>
+</head>
+
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Estado</th>
+        <th>Red Social</th>
+        <th>Fecha de Ingreso</th>
+        <th>Calificación</th>
+        <th>Rol</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${trabajadores}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.nombre}"></td>
+        <td th:text="${item.correo}"></td>
+        <td th:text="${item.telefono}"></td>
+        <td th:text="${item.estado} ? 'Activo' : 'Inactivo'"></td>
+        <td th:text="${item.redSocial}"></td>
+        <td th:text="${item.fechaIngreso}"></td>
+        <td th:text="${item.calificacion}"></td>
+        <td th:text="${item.rol}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
