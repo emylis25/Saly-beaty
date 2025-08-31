@@ -12,7 +12,7 @@
 <div class="container mt-5 d-flex justify-content-center">
   <div class="card w-50">
     <div class="card-body">
-      <h3 class="card-title text-center mb-4" th:text="${cita.id} != null ? 'Editar Cita' : 'Nueva Cita'"></h3>
+      <h3 class="card-title text-center mb-4" th:text="${cita.id} != null ? 'Nueva Cita'">Nueva Cita</h3>
 
       <form th:action="@{${formAction}}" th:object="${cita}" method="post">
 
