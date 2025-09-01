@@ -6,41 +6,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #fff0f5; /* Fondo rosa claro */
+            background-color: #fff0f5; /* Fondo general rosa claro */
         }
 
-        .details-card {
-            border: none;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            background-color: #ffe4e1; /* Rosa pastel */
-        }
-
-        .card-header {
-            background-color: #f8c8dc; /* Rosa más intenso */
-            color: #4a4a4a;
-            padding: 2.5rem;
+        h2 {
+            color: #d16ba5;
+            font-weight: bold;
             text-align: center;
-            border-top-left-radius: 1.5rem;
-            border-top-right-radius: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .details-list .list-group-item {
-            border: none;
-            padding: 1rem 1.5rem;
-            background-color: #fff5f7; /* Fondo suave para cada ítem */
-            color: #333;
+        .form-control, .form-select {
+            background-color: #ffe4e1; /* Fondo rosa pastel para campos */
+            border: 1px solid #f3b6c4;
+            color: #4a4a4a;
         }
 
-        .details-list strong {
-            display: block;
-            margin-bottom: 0.25rem;
+        .form-control:focus, .form-select:focus {
+            border-color: #d16ba5;
+            box-shadow: 0 0 0 0.2rem rgba(209, 107, 165, 0.25);
+        }
+
+        label.form-label {
             color: #7a4a6c;
+            font-weight: 500;
         }
 
-        .card-footer {
-            background-color: transparent;
-            padding: 1.5rem;
+        .btn-primary {
+            background-color: #f8c8dc;
+            border-color: #f8c8dc;
+            color: #4a4a4a;
+        }
+
+        .btn-primary:hover {
+            background-color: #f4b0cc;
+            border-color: #f4b0cc;
+            color: #2c2c2c;
         }
 
         .btn-secondary {
@@ -54,14 +55,25 @@
             border-color: #cbaacb;
             color: #2c2c2c;
         }
+
+        .container {
+            background-color: #fffafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{layout/navbar :: navbar}"></div>
 <div class="container mt-4">
-    <h2>Nuevo Trabajador</h2>
+    <h2>Editar Trabajador</h2>
 
-    <form th:action="@{/trabajadores/save}" th:object="${trabajador}" method="post">
+    <form th:action="@{/trabajadores/edit}" th:object="${trabajador}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{password}" />
+        <input type="hidden" th:field="*{rol}" />
+
         <!-- Nombre -->
         <div class="mb-3">
             <label class="form-label">Nombre</label>
@@ -111,18 +123,6 @@
         <div class="mb-3">
             <label class="form-label">Calificación (0 a 5)</label>
             <input type="number" th:field="*{calificacion}" class="form-control" min="0" max="5">
-        </div>
-
-        <!-- Contraseña -->
-        <div class="mb-3">
-            <label class="form-label">Contraseña</label>
-            <input type="password" th:field="*{password}" class="form-control" required>
-        </div>
-
-        <!-- Rol -->
-        <div class="mb-3">
-            <label class="form-label">Rol</label>
-            <input type="text" th:field="*{rol}" class="form-control" required>
         </div>
 
         <!-- Botones -->

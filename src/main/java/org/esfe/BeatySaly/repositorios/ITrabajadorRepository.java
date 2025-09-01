@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ITrabajadorRepository extends JpaRepository<Trabajador, Integer> {
 
+    Trabajador findByCorreo(String correo);
+
     Page<Trabajador> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
 }

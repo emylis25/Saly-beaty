@@ -94,6 +94,7 @@ public class Trabajador {
     }
 
     public String getCorreo() {
+
         return correo;
     }
 

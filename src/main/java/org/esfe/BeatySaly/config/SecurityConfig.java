@@ -45,12 +45,13 @@ public class SecurityConfig {
                         // endpoints públicos
                         .requestMatchers("/home", "/login", "/css/**", "/js/**", "/imagenes/**", "/clientes/save", "/clientes/create").permitAll()
                         // admin
-                        .requestMatchers("/vistaAdministrador", "/listarCitas", "/reportes").hasRole("ADMIN")
+                        .requestMatchers("/vistaAdministrador", "/listarCitas", "/reportes", "/trabajador/details").hasRole("ADMIN")
                         // trabajador
                         .requestMatchers("/vistaTrabajador", "/trabajador").hasRole("TRABAJADOR")
                         // cliente
                         .requestMatchers("/vistaCliente", "/citas/nueva", "/resennas/crear", "/cliente").hasRole("CLIENTE")
                         .anyRequest().authenticated()
+
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

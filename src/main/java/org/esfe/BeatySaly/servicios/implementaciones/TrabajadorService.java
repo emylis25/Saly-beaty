@@ -50,7 +50,7 @@ public class TrabajadorService implements ITrabajadorService {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void remove(int id) {
         trabajadorRepository.deleteById(id);
     }
 
@@ -58,4 +58,11 @@ public class TrabajadorService implements ITrabajadorService {
     public Page<Trabajador> buscarPorNombre(String nombre, Pageable pageable) {
         return trabajadorRepository.findByNombreContainingIgnoreCase(nombre, pageable);
     }
+
+    @Override
+    public Trabajador buscarPorCorreo(String correo) {
+        return trabajadorRepository.findByCorreo(correo);
+    }
+
 }
+
