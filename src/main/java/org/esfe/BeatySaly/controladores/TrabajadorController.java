@@ -78,19 +78,19 @@ public class TrabajadorController {
         return "redirect:/trabajadores"; // ⬅️ Redirección única y consistente
     }
 
-//    @GetMapping("/details")
-//    public String details(Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String correo = authentication.getName(); // Suponiendo que el correo es el username
-//
-//        Trabajador trabajador = trabajadorService.buscarPorCorreo(correo);
-//        if (trabajador == null) {
-//            return "redirect:/trabajadores";
-//        }
-//
-//        model.addAttribute("trabajador", trabajador);
-//        return "trabajador/details"; // Vista: src/main/resources/templates/trabajador/details.html
-//    }
+    @GetMapping("/details")
+    public String details(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String correo = authentication.getName(); // Suponiendo que el correo es el username
+
+        Trabajador trabajador = trabajadorService.buscarPorCorreo(correo);
+        if (trabajador == null) {
+            return "redirect:/trabajadores";
+        }
+
+        model.addAttribute("trabajador", trabajador);
+        return "trabajador/details"; // Vista: src/main/resources/templates/trabajador/details.html
+    }
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable("id") int id, Model model) {

@@ -28,11 +28,9 @@
 
                 <!-- Opciones TRABAJADOR -->
                 <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{/trabajadores}">Mis Horarios</a>
+                    <a class="nav-link" th:href="@{/trabajadores/details}">Mi Perfil</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('TRABAJADOR')">
-                    <a class="nav-link" th:href="@{trabajadores/details}">Mi Perfil</a>
-                </li>
+
 
                 <!-- Opciones ADMIN -->
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
@@ -40,18 +38,6 @@
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/citas/listarCitas}">RP Citas</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/servicios}">Servicios</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/horarios}">Horarios</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/citas}">Ver citas</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/resennas}">Ver reseñas</a>
                 </li>
             </ul>
 
